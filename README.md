@@ -13,3 +13,7 @@ Commands:
     serve (default)
     Serve files locally. Development only.
 ```
+
+## License
+
+[License](LICENSE.txt)

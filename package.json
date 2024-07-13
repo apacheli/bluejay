@@ -1,18 +1,20 @@
 {
-  "name": "eggbeater",
-  "version": "1.0.0",
-  "scripts": {
-    "fmt": "deno fmt --indent-width=2 --line-width=1000",
-    "build": "bun run server.js build",
-    "serve": "bun run server.js serve",
-    "start": "bun run server.js"
-  },
-  "dependencies": {
-    "@mdx-js/esbuild": "^3.0.1",
-    "@types/bun": "^1.1.6",
-    "preact": "^10.22.1",
-    "preact-render-to-string": "^6.5.5",
-    "remark-emoji": "^5.0.0",
-    "remark-gfm": "^4.0.0"
-  }
+    "name": "eggbeater",
+    "version": "1.0.0",
+    "scripts": {
+        "check": "bunx @biomejs/biome check --write",
+        "build": "bun run server/main.jsx build",
+        "serve": "bun run server/main.jsx serve"
+    },
+    "dependencies": {
+        "@mdx-js/esbuild": "^3.0.1",
+        "preact": "^10.22.1",
+        "preact-render-to-string": "^6.5.5",
+        "remark-emoji": "^5.0.0",
+        "remark-gfm": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/bun": "^1.1.6",
+        "@biomejs/biome": "^1.8.3"
+    }
 }
