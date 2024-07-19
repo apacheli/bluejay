@@ -1,10 +1,11 @@
 {
     "name": "eggbeater",
     "version": "1.0.0",
+    "main": "main.js",
+    "files": ["main.js"],
+    "type": "module",
     "scripts": {
-        "check": "bunx @biomejs/biome check --write",
-        "build": "bun run server/main.jsx build",
-        "serve": "bun run server/main.jsx serve"
+        "check": "bunx @biomejs/biome check --write"
     },
     "dependencies": {
         "@mdx-js/esbuild": "^3.0.1",

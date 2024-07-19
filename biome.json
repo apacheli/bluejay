@@ -10,7 +10,6 @@
     },
     "formatter": {
         "indentStyle": "space",
-        "indentWidth": 4,
-        "lineWidth": 160
+        "indentWidth": 4
     }
 }
