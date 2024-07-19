@@ -2,6 +2,16 @@
 
 Create a book with MDX, JSX components, and Bun
 
+- Performance is key!
+- Supports TypeScript and TSX right out of the box
+- Easily spin up a development server and build static files
+
+## Install
+
+```sh
+$ bun add https://github.com/apacheli/bluejay
+```
+
 ## Example
 
 ```js
@@ -15,6 +25,8 @@ await build({
     },
 });
 ```
+
+You can run `$ bunx bluejay <directory>` to spin up a new project quickly.
 
 ## License
 

@@ -2,11 +2,16 @@
     "name": "bluejay",
     "description": "Create a book with MDX, JSX components, and Bun",
     "version": "1.0.0",
-    "main": "main.js",
-    "files": ["main.js"],
+    "main": "src/main.js",
+    "typings": "src/main.d.ts",
+    "bin": {
+        "bluejay": "src/bin.js"
+    },
     "type": "module",
     "scripts": {
-        "check": "bunx @biomejs/biome check --write"
+        "check": "bunx @biomejs/biome check --write",
+        "build": "bun test/main.js build",
+        "serve": "bun test/main.js serve"
     },
     "dependencies": {
         "@mdx-js/esbuild": "^3.0.1",
@@ -16,7 +21,10 @@
         "remark-gfm": "^4.0.0"
     },
     "devDependencies": {
-        "@types/bun": "^1.1.6",
+        "@types/bun": "latest",
         "@biomejs/biome": "^1.8.3"
+    },
+    "peerDependencies": {
+        "typescript": "^5.0.0"
     }
 }

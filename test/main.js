@@ -1,8 +1,8 @@
-import { build, serve } from "../main.js";
+import { build, serve } from "../src/main.js";
 
 import Page from "./components/Page.jsx";
 
-const action = Bun.argv[2] === "serve" ? serve : build;
+const action = Bun.argv[2] === "build" ? build : serve;
 
 await action({
     dir: import.meta.dir,

@@ -1,0 +1,18 @@
+{
+    "type": "module",
+    "scripts": {
+        "check": "bunx @biomejs/biome check --write",
+        "build": "bun test/main.js build",
+        "serve": "bun test/main.js serve"
+    },
+    "dependencies": {
+        "bluejay": "https://github.com/apacheli/bluejay"
+    },
+    "devDependencies": {
+        "@types/bun": "latest",
+        "@biomejs/biome": "^1.8.3"
+    },
+    "peerDependencies": {
+        "typescript": "^5.0.0"
+    }
+}
