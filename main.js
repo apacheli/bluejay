@@ -23,7 +23,7 @@ const importPages = async () => {
         if (dirent.isFile()) {
             const path = `${dirent.parentPath}/${dirent.name}`;
             pages.push({
-                mod: await import(`${Bun.cwd}${path}`),
+                module: await import(`${Bun.cwd}${path}`),
                 path: `${path.slice(5, -3)}html`,
             });
         }

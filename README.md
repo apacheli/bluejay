@@ -2,16 +2,14 @@
 
 Eggbeater is a simple renderer for static MDX pages.
 
-## Scripts
+## Example
 
-```sh
-Commands:
+```js
+import { build } from "eggbeater";
 
-    build
-    Build distribution files.
-
-    serve (default)
-    Serve files locally. Development only.
+await build((page) => {
+    return page.module.default();
+});
 ```
 
 ## License
