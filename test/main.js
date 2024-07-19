@@ -1,8 +1,8 @@
-import { build, serve } from "../main.js";
+import { build } from "../main.js";
 
 import Page from "./components/Page.jsx";
 
-await serve({
+await build({
     dir: import.meta.dir,
     path: "/bluejay",
     page: (page, pages) => {
