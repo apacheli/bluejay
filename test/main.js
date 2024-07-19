@@ -1,8 +1,10 @@
-import { build } from "../main.js";
+import { build, serve } from "../main.js";
 
 import Page from "./components/Page.jsx";
 
-await build({
+const action = Bun.argv[2] === "serve" ? serve : build;
+
+await action({
     dir: import.meta.dir,
     path: "/bluejay",
     page: (page, pages) => {
