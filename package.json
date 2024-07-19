@@ -1,5 +1,6 @@
 {
-    "name": "eggbeater",
+    "name": "bluejay",
+    "description": "Create a book with MDX, JSX components, and Bun",
     "version": "1.0.0",
     "main": "main.js",
     "files": ["main.js"],

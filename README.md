@@ -7,8 +7,12 @@ Create a book with MDX, JSX components, and Bun
 ```js
 import { build } from "bluejay";
 
-await build((page) => {
-    return <page.module.default />;
+await build({
+    dir: import.meta.dir,
+    path: "/",
+    page: (page) => {
+        return <page.module.default />;
+    },
 });
 ```
 

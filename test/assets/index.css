@@ -9,9 +9,12 @@ html {
 }
 
 body {
+    background-color: rgb(32, 48, 64);
+    color: #FFFFFF;
     font-family: "Segoe UI", sans-serif;
     font-size: 1rem;
     line-height: 2;
+    margin: 0;
 }
 
 h1,
@@ -21,6 +24,14 @@ h4,
 h5,
 h6 {
     margin: 1rem 0;
+}
+
+.content {
+    background-color: #00000020;
+    border-radius: 1rem;
+    margin: 4rem auto;
+    padding: 1rem;
+    width: min(25% + 16rem, 100%);
 }
 
 .content a {

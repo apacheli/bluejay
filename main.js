@@ -37,7 +37,7 @@ const importPages = async (options) => {
             const file = `${dirent.parentPath}/${dirent.name}`;
             pages.push({
                 module: await import(file),
-                path: `/${file.slice(options.dir.length + 7, -3)}html`,
+                path: `${file.slice(options.dir.length + 7, -3)}html`,
             });
         }
     }
@@ -49,12 +49,13 @@ export const build = async (options) => {
     await cp(`${options.dir}/assets`, `${options.dir}/dist/assets`, readdirOptions);
     const pages = await importPages(options);
     for (const page of pages) {
-        await Bun.write(`${options.dir}/dist${page.path}`, `<!DOCTYPE html>${renderToStaticMarkup(options.page(page, pages))}`);
+        await Bun.write(`${options.dir}/dist/${page.path}`, `<!DOCTYPE html>${renderToStaticMarkup(options.page(page, pages))}`);
     }
     console.timeEnd("build");
 };
 
 export const serve = async (options) => {
+    const p = options.path === "/" ? "" : options.path;
     console.time("serve");
     const paths = new Map();
     console.log("\x1b[1m:: Assets ::\x1b[22m\n");
@@ -62,7 +63,7 @@ export const serve = async (options) => {
         if (dirent.isFile()) {
             const path = `${dirent.parentPath}/${dirent.name}`;
             const asset = Bun.file(path);
-            const x = `/${path.slice(options.dir.length + 1)}`.replace(pathRegExp, "/");
+            const x = `${p}/${path.slice(options.dir.length + 1)}`.replace(pathRegExp, "/");
             console.log(`    \x1b[36m${x}\x1b[39m (\x1b[1m${asset.size}\x1b[22m B)`);
             paths.set(x, {
                 body: await asset.bytes(),
@@ -74,7 +75,7 @@ export const serve = async (options) => {
     console.log("\n\x1b[1m:: Pages ::\x1b[22m\n");
     const pages = await importPages(options);
     for (const page of pages) {
-        const path = `${page.path.replace(pathRegExp, "/")}`;
+        const path = `${p}/${page.path.replace(pathRegExp, "/")}`;
         console.log(`    \x1b[36m${path}\x1b[39m`);
         paths.set(path, {
             body: `<!DOCTYPE html>${renderToStaticMarkup(options.page(page, pages))}`,
@@ -84,18 +85,19 @@ export const serve = async (options) => {
 
     console.log();
     console.timeEnd("serve");
-    console.log("\nServing at \x1b[1mhttp://localhost:6009/\x1b[22m\n");
+    console.log(`\nServing at \x1b[1mhttp://localhost:6009${options.path}\x1b[22m\n`);
     return Bun.serve({
         port: 6009,
-        fetch: (request) => handleRequest(request, paths),
+        fetch: (request) => handleRequest(request, paths, options),
     });
 };
 
-const handleRequest = (request, paths) => {
+const handleRequest = (request, paths, options) => {
     const url = new URL(request.url);
+    const p = options.path === "/" ? "" : options.path;
     let response;
-    if (url.pathname === "/") {
-        response = paths.get("/index.html");
+    if (url.pathname === options.path) {
+        response = paths.get(`${p}/index.html`);
     } else {
         response = paths.get(url.pathname) ?? paths.get(`${url.pathname}.html`);
     }
@@ -108,7 +110,7 @@ const handleRequest = (request, paths) => {
         });
     }
     console.log(`    \x1b[31m${request.method} ${url.pathname}\x1b[39m`);
-    const notFound = paths.get("/404.html");
+    const notFound = paths.get(`${p}/404.html`);
     if (notFound !== undefined) {
         return new Response(notFound.body, {
             headers: {
