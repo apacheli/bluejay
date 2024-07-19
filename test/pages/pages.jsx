@@ -3,7 +3,7 @@ export const description = "Hello, World!";
 
 export default ({ pages }) => (
     <>
-        <img src="/assets/icon.png" alt="The bluejay logo." />
+        <img src="/bluejay/assets/icon.png" alt="The bluejay logo." />
         <h1>My Pages</h1>
         <ul>
             {pages.map((page) => (

@@ -1,14 +1,14 @@
-# Eggbeater
+# bluejay
 
-Eggbeater is a simple renderer for static MDX pages.
+Create a book with MDX, JSX components, and Bun
 
 ## Example
 
 ```js
-import { build } from "eggbeater";
+import { build } from "bluejay";
 
 await build((page) => {
-    return page.module.default();
+    return <page.module.default />;
 });
 ```
 

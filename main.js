@@ -17,48 +17,54 @@ Bun.plugin(
     }),
 );
 
-const importPages = async () => {
+Bun.plugin({
+    name: "svg",
+    setup: (build) => {
+        build.onLoad({ filter: /\.svg$/ }, async (args) => {
+            const svg = await Bun.file(args.path).text();
+            return {
+                contents: `export default()=>${svg}`,
+                loader: "js",
+            };
+        });
+    },
+});
+
+const importPages = async (options) => {
     const pages = [];
-    for (const dirent of await readdir("pages", readdirOptions)) {
+    for (const dirent of await readdir(`${options.dir}/pages`, readdirOptions)) {
         if (dirent.isFile()) {
-            const path = `${dirent.parentPath}/${dirent.name}`;
+            const file = `${dirent.parentPath}/${dirent.name}`;
             pages.push({
-                module: await import(`${Bun.cwd}${path}`),
-                path: `${path.slice(5, -3)}html`,
+                module: await import(file),
+                path: `/${file.slice(options.dir.length + 7, -3)}html`,
             });
         }
     }
     return pages;
 };
 
-export const build = async (wrap) => {
+export const build = async (options) => {
     console.time("build");
-    await cp("assets", "dist/assets", readdirOptions);
-    const pages = await importPages();
+    await cp(`${options.dir}/assets`, `${options.dir}/dist/assets`, readdirOptions);
+    const pages = await importPages(options);
     for (const page of pages) {
-        await Bun.write(
-            `dist${page.path}`,
-            `<!DOCTYPE html>${renderToStaticMarkup(wrap(page, pages))}`,
-        );
+        await Bun.write(`${options.dir}/dist${page.path}`, `<!DOCTYPE html>${renderToStaticMarkup(options.page(page, pages))}`);
     }
     console.timeEnd("build");
 };
 
-export const serve = async (wrap) => {
+export const serve = async (options) => {
     console.time("serve");
     const paths = new Map();
     console.log("\x1b[1m:: Assets ::\x1b[22m\n");
-    for (const dirent of await readdir("assets", readdirOptions)) {
+    for (const dirent of await readdir(`${options.dir}/assets`, readdirOptions)) {
         if (dirent.isFile()) {
-            const path = `${dirent.parentPath}/${dirent.name}`.replace(
-                pathRegExp,
-                "/",
-            );
+            const path = `${dirent.parentPath}/${dirent.name}`;
             const asset = Bun.file(path);
-            console.log(
-                `    \x1b[36m/${path}\x1b[39m (\x1b[1m${asset.size}\x1b[22m B)`,
-            );
-            paths.set(`/${path}`, {
+            const x = `/${path.slice(options.dir.length + 1)}`.replace(pathRegExp, "/");
+            console.log(`    \x1b[36m${x}\x1b[39m (\x1b[1m${asset.size}\x1b[22m B)`);
+            paths.set(x, {
                 body: await asset.bytes(),
                 type: asset.type,
             });
@@ -66,12 +72,12 @@ export const serve = async (wrap) => {
     }
 
     console.log("\n\x1b[1m:: Pages ::\x1b[22m\n");
-    const pages = await importPages();
+    const pages = await importPages(options);
     for (const page of pages) {
-        const path = page.path.replace(pathRegExp, "/");
+        const path = `${page.path.replace(pathRegExp, "/")}`;
         console.log(`    \x1b[36m${path}\x1b[39m`);
         paths.set(path, {
-            body: `<!DOCTYPE html>${renderToStaticMarkup(wrap(page, pages))}`,
+            body: `<!DOCTYPE html>${renderToStaticMarkup(options.page(page, pages))}`,
             type: "text/html",
         });
     }
