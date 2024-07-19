@@ -1,7 +1,7 @@
 export default ({ title, description, children }) => (
     <>
         <head>
-            <title>{`${title} | apacheli`}</title>
+            <title>{title}</title>
             <link rel="icon" href="/assets/icon.png" />
             <link rel="stylesheet" href="/assets/index.css" />
             <meta charset="utf8" />
