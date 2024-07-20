@@ -2,8 +2,8 @@
     "type": "module",
     "scripts": {
         "check": "bunx @biomejs/biome check --write",
-        "build": "bun test/main.js build",
-        "serve": "bun test/main.js serve"
+        "build": "START_NODE=build bun run main.tsx",
+        "serve": "START_MODE=serve bun run main.tsx"
     },
     "dependencies": {
         "bluejay": "https://github.com/apacheli/bluejay"

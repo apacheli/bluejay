@@ -1,1 +1,4 @@
 * text=auto
+
+*.md linguist-detectable
+*.d.ts linguist-detectable

@@ -1,6 +1,6 @@
 # bluejay-app
 
-This project was created by `$ bunx bluejay`.
+This project was created using `$ bunx bluejay init`.
 
 Run the following commands to get started:
 

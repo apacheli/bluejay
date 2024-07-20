@@ -42,3 +42,9 @@ h6 {
 .content a:hover {
     text-decoration: underline;
 }
+
+.content img {
+    display: block;
+    margin: auto;
+    max-width: 100%;
+}

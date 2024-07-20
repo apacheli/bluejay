@@ -1,11 +1,10 @@
-import { build, serve } from "../src/main.js";
+import { start } from "../src/main.js";
 
 import Page from "./components/Page.jsx";
 
-const action = Bun.argv[2] === "build" ? build : serve;
-
-await action({
+await start({
     dir: import.meta.dir,
+    mode: Bun.env.START_MODE,
     path: "/bluejay",
     page: (page, pages) => {
         return (

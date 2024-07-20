@@ -92,6 +92,24 @@ export const serve = async (options) => {
     });
 };
 
+export const start = async (options) => {
+    switch (options.mode ?? "build") {
+        case "build": {
+            await build(options);
+            break;
+        }
+
+        case "serve": {
+            await serve(options);
+            break;
+        }
+
+        default: {
+            throw new Error(`Invalid mode '${options.mode}'`);
+        }
+    }
+};
+
 const handleRequest = (request, paths, options) => {
     const url = new URL(request.url);
     const p = options.path === "/" ? "" : options.path;

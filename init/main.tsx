@@ -1,9 +1,8 @@
-import { build, serve } from "bluejay";
+import { start } from "bluejay";
 
-const action = Bun.argv[2] === "build" ? build : serve;
-
-await action({
+await start({
     dir: import.meta.dir,
+    mode: Bun.env.START_MODE,
     path: "/",
     page: (page) => {
         return (
