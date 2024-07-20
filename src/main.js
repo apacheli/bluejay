@@ -92,16 +92,14 @@ export const serve = async (options) => {
     });
 };
 
-export const start = async (options) => {
+export const start = (options) => {
     switch (options.mode ?? "build") {
         case "build": {
-            await build(options);
-            break;
+            return build(options);
         }
 
         case "serve": {
-            await serve(options);
-            break;
+            return serve(options);
         }
 
         default: {
