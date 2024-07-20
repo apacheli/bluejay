@@ -1,4 +1,4 @@
 * text=auto
 
-*.md linguist-detectable
-*.d.ts linguist-detectable
+*.md linguist-language=md
+*.d.ts linguist-language=ts
