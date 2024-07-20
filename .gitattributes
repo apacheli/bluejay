@@ -1,4 +1,1 @@
 * text=auto
-
-*.md linguist-language=Markdown
-*.d.ts linguist-language=TypeScript
