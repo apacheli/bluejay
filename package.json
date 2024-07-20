@@ -1,14 +1,10 @@
 {
     "name": "bluejay",
     "description": "Create a book with MDX, JSX components, and Bun",
-    "version": "1.0.0",
+    "version": "0.1.0-beta",
     "main": "src/main.js",
     "typings": "src/main.d.ts",
-    "files": [
-        "init",
-        "src",
-        "tsconfig.json"
-    ],
+    "files": ["init", "src", "tsconfig.json"],
     "bin": {
         "bluejay": "src/bin.js"
     },

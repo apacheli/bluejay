@@ -18,6 +18,11 @@ switch (command) {
         break;
     }
 
+    case "create": {
+        console.log("\x1b[31merror\x1b[39m: Not implemented :(");
+        break;
+    }
+
     default: {
         console.log(`\x1b[31merror\x1b[39m: unknown command: \x1b[1m${command}\x1b[22m\n`);
         console.log("Commands:\n");
