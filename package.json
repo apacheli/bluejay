@@ -4,6 +4,11 @@
     "version": "1.0.0",
     "main": "src/main.js",
     "typings": "src/main.d.ts",
+    "files": [
+        "init",
+        "src",
+        "tsconfig.json"
+    ],
     "bin": {
         "bluejay": "src/bin.js"
     },

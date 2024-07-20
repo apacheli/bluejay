@@ -11,7 +11,7 @@ switch (command) {
         console.log(`Project initialized at \x1b[36m${location}\x1b[39m\n\nRun the following commands to get started:\n`);
         console.log(`    \x1b[35m$\x1b[39m \x1b[1mcd ${location}\x1b[22m`);
         console.log("    \x1b[35m$\x1b[39m \x1b[1mbun install\x1b[22m");
-        console.log("    \x1b[35m$\x1b[39m \x1b[1mbun run main.js serve\x1b[22m");
+        console.log("    \x1b[35m$\x1b[39m \x1b[1mbun serve\x1b[22m");
         break;
     }
 
