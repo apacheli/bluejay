@@ -1,6 +1,6 @@
 # bluejay
 
-<img src="./test/assets/logo.png" alt="The bluejay logo." align="right" height="50%" width="50%" />
+<img src="./test/assets/icon.png" alt="The bluejay logo." align="right" />
 
 > [!WARNING]
 > bluejay is currently under development.
