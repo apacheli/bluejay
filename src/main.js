@@ -84,7 +84,7 @@ export const serve = async (options) => {
 
     console.log();
     console.timeEnd("serve");
-    console.log(`\nServing at \x1b[1mhttp://localhost:6009${options.path}\x1b[22m\n`);
+    console.log(`\nServing at \x1b[1mhttp://localhost:6009${options.path ?? "/"}\x1b[22m\n`);
     return Bun.serve({
         port: 6009,
         fetch: (request) => handleRequest(request, paths, options),
