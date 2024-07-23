@@ -3,7 +3,6 @@ import { start } from "bluejay";
 await start({
     dir: import.meta.dir,
     mode: Bun.env.START_MODE,
-    path: "/",
     page: (page) => {
         return (
             <html lang="en">
