@@ -13,8 +13,8 @@
         "lint": "bunx @biomejs/biome lint --write",
         "check": "bunx @biomejs/biome check --write",
         "format": "bunx @biomejs/biome format --write",
-        "build": "START_NODE=build bun run test/main.jsx",
-        "serve": "START_MODE=serve bun run test/main.jsx"
+        "build": "START_NODE=build bun run test/main.tsx",
+        "serve": "START_MODE=serve bun run test/main.tsx"
     },
     "dependencies": {
         "@mdx-js/esbuild": "^3.0.1",
