@@ -1,7 +1,9 @@
 {
     "type": "module",
     "scripts": {
+        "lint": "bunx @biomejs/biome lint --write",
         "check": "bunx @biomejs/biome check --write",
+        "format": "bunx @biomejs/biome format --write",
         "build": "START_NODE=build bun run main.tsx",
         "serve": "START_MODE=serve bun run main.tsx"
     },

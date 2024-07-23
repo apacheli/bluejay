@@ -6,13 +6,14 @@ export declare interface BuildOptions<T> {
     dir: string;
     mode?: string;
     path?: string;
-    page: (page: Page<T>) => JSX.Element;
+    page: (page: Page<T>, pages?: Page<T>[]) => JSX.Element;
 }
 
 export declare interface Page<T> {
     path: string;
     module: {
-        default: (props?: unknown) => JSX.Element;
+        default: (props?: { [x: string]: unknown }) => JSX.Element;
+        [x: string]: unknown;
     };
 }
 

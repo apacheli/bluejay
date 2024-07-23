@@ -1,6 +1,6 @@
-# bluejay
+<img src="./test/assets/banner.png" alt="The bluejay logo." align="center" />
 
-<img src="./test/assets/icon.png" alt="The bluejay logo." align="right" />
+# bluejay
 
 > [!WARNING]
 > bluejay is currently under development.
@@ -28,16 +28,12 @@ $ bunx bluejay init
 
 ## Structure
 
-> [!NOTE]
-> This is subject to change in the future.
-
-Files from `assets` are cloned to `dist/assets`.
-
-All files in `pages` are expected to be one of:
-
-- `.jsx`
-- `.mdx`
-- `.tsx`
+- `assets` clones to `dist/assets`
+- `pages` clones to `dist`
+- Supported file types in `pages`:
+  - JavaScript: `.js`, `.jsx`
+  - Markdown: `.md`, `.mdx`
+  - TypeScript: `.ts`, `.tsx`
 
 ## License
 

@@ -4,7 +4,6 @@ import { renderToStaticMarkup } from "preact-render-to-string";
 import remarkEmoji from "remark-emoji";
 import remarkGfm from "remark-gfm";
 
-const pathRegExp = /\\/g;
 const readdirOptions = {
     recursive: true,
     withFileTypes: true,
@@ -37,7 +36,7 @@ const importPages = async (options) => {
             const file = `${dirent.parentPath}/${dirent.name}`;
             pages.push({
                 module: await import(file),
-                path: `${file.slice(options.dir.length + 7, -3)}html`,
+                path: file.slice(options.dir.length + 7).replace(/\.\w+$/, ".html"),
             });
         }
     }
@@ -55,7 +54,7 @@ export const build = async (options) => {
 };
 
 export const serve = async (options) => {
-    const p = options.path === "/" ? "" : options.path;
+    const p = options.path ?? "";
     console.time("serve");
     const paths = new Map();
     console.log("\x1b[1m:: Assets ::\x1b[22m\n");
@@ -63,7 +62,7 @@ export const serve = async (options) => {
         if (dirent.isFile()) {
             const path = `${dirent.parentPath}/${dirent.name}`;
             const asset = Bun.file(path);
-            const x = `${p}/${path.slice(options.dir.length + 1)}`.replace(pathRegExp, "/");
+            const x = `${p}/${path.slice(options.dir.length + 1)}`.replace(/\\/g, "/");
             console.log(`    \x1b[36m${x}\x1b[39m (\x1b[1m${asset.size}\x1b[22m B)`);
             paths.set(x, {
                 body: await asset.bytes(),
@@ -75,7 +74,7 @@ export const serve = async (options) => {
     console.log("\n\x1b[1m:: Pages ::\x1b[22m\n");
     const pages = await importPages(options);
     for (const page of pages) {
-        const path = `${p}/${page.path.replace(pathRegExp, "/")}`;
+        const path = `${p}/${page.path.replace(/\\/g, "/")}`;
         console.log(`    \x1b[36m${path}\x1b[39m`);
         paths.set(path, {
             body: `<!DOCTYPE html>${renderToStaticMarkup(options.page(page, pages))}`,
@@ -110,7 +109,7 @@ export const start = (options) => {
 
 const handleRequest = (request, paths, options) => {
     const url = new URL(request.url);
-    const p = options.path === "/" ? "" : options.path;
+    const p = options.path ?? "";
     let response;
     if (url.pathname === options.path) {
         response = paths.get(`${p}/index.html`);
