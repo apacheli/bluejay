@@ -3,6 +3,7 @@ import mdx from "@mdx-js/esbuild";
 import { renderToStaticMarkup } from "preact-render-to-string";
 import remarkEmoji from "remark-emoji";
 import remarkGfm from "remark-gfm";
+import remarkHighlightJs from "remark-highlight.js";
 
 const readdirOptions = {
     recursive: true,
@@ -12,7 +13,7 @@ const readdirOptions = {
 Bun.plugin(
     mdx({
         jsxImportSource: "preact",
-        remarkPlugins: [remarkEmoji, remarkGfm],
+        remarkPlugins: [remarkEmoji, remarkGfm, remarkHighlightJs],
     }),
 );
 

@@ -1,7 +1,7 @@
 {
     "name": "bluejay",
     "description": "Create a book with MDX, JSX components, and Bun",
-    "version": "0.1.0-beta",
+    "version": "0.1.0",
     "main": "src/main.js",
     "typings": "src/main.d.ts",
     "files": ["init", "src", "tsconfig.json"],
@@ -21,7 +21,8 @@
         "preact": "^10.22.1",
         "preact-render-to-string": "^6.5.5",
         "remark-emoji": "^5.0.0",
-        "remark-gfm": "^4.0.0"
+        "remark-gfm": "^4.0.0",
+        "remark-highlight.js": "^7.0.1"
     },
     "devDependencies": {
         "@types/bun": "latest",
