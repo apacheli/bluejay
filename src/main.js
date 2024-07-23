@@ -111,7 +111,7 @@ const handleRequest = (request, paths, options) => {
     const url = new URL(request.url);
     const p = options.path ?? "";
     let response;
-    if (url.pathname === options.path) {
+    if (url.pathname === (options.path ?? "/")) {
         response = paths.get(`${p}/index.html`);
     } else {
         response = paths.get(url.pathname) ?? paths.get(`${url.pathname}.html`);
