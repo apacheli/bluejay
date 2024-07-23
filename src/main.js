@@ -22,7 +22,7 @@ Bun.plugin({
         build.onLoad({ filter: /\.svg$/ }, async (args) => {
             const svg = await Bun.file(args.path).text();
             return {
-                contents: `export default()=>${svg}`,
+                contents: `export default ${svg}`,
                 loader: "js",
             };
         });
