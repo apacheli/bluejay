@@ -26,6 +26,20 @@ Run the following command to instantly start a new project:
 $ bunx bluejay init
 ```
 
+Additional instructions are given after the project initializes.
+
+Serve locally:
+
+```sh
+$ bun serve
+```
+
+Build to dist:
+
+```sh
+$ bun run build
+```
+
 ## Structure
 
 - `assets` clones to `dist/assets`

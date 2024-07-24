@@ -4,13 +4,13 @@ This project was created using `$ bunx bluejay init`.
 
 Run the following commands to get started:
 
-Run to start serving locally:
+Serve locally:
 
 ```sh
 $ bun serve
 ```
 
-Run to build HTML files:
+Build to dist:
 
 ```sh
 $ bun run build
