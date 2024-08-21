@@ -192,7 +192,7 @@ svg {
   text-decoration: none;
 }
 
-.content p a:hover {
+.content a:hover {
   text-decoration: underline;
 }
 
@@ -220,6 +220,10 @@ svg {
   font-size: 1rem;
   overflow: auto;
   padding: .25rem;
+}
+
+.content a:has(> .blog) {
+  text-decoration: none;
 }
 
 .blog {

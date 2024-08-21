@@ -1,7 +1,8 @@
 import Article from "@components/Article";
 
 export const title = "Blog";
-export const description = "Read";
+export const description =
+  "Keep up with the latest updates regarding Bluejay development.";
 
 export default ({ pages }: { pages: any[] }) => (
   <>
