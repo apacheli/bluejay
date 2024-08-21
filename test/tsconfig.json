@@ -1,12 +1,13 @@
 {
-  "compilerOptions": {
-    "paths": {
-      "~/*": ["./*"],
-      "@components/*": ["./src/components/*.tsx"],
-      "@icons/*": ["./src/icons/*"],
-      "bluejay": ["../src/main.tsx"],
+    "compilerOptions": {
+        "paths": {
+            "~/*": ["./*"],
+            "@components/*": ["./src/components/*.tsx"],
+            "@icons/*": ["./src/icons/*"],
+            "bluejay": ["../src/main.tsx"],
+            "bluejay/": ["../"]
+        },
+        "types": ["@types/bun", "./types.d.ts"]
     },
-    "types": ["@types/bun", "./types.d.ts"]
-  },
-  "extends": ["../tsconfig.json"]
+    "extends": ["../tsconfig.json"]
 }

@@ -230,6 +230,7 @@ svg {
   background-color: var(--blacken);
   border-radius: .5rem;
   color: var(--theme-text);
+  margin-top: 1rem;
   padding: 1rem;
 }
 
