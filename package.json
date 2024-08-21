@@ -1,34 +1,28 @@
 {
-    "name": "bluejay",
-    "description": "Create a book with MDX, JSX components, and Bun",
-    "version": "0.1.0",
-    "main": "src/main.js",
-    "typings": "src/main.d.ts",
-    "files": ["init", "src", "tsconfig.json"],
-    "bin": {
-        "bluejay": "src/bin.js"
-    },
-    "type": "module",
-    "scripts": {
-        "lint": "bunx @biomejs/biome lint --write",
-        "check": "bunx @biomejs/biome check --write",
-        "format": "bunx @biomejs/biome format --write",
-        "build": "START_NODE=build bun run test/main.tsx",
-        "serve": "START_MODE=serve bun run --watch test/main.tsx"
-    },
-    "dependencies": {
-        "@mdx-js/esbuild": "^3.0.1",
-        "preact": "^10.22.1",
-        "preact-render-to-string": "^6.5.5",
-        "remark-emoji": "^5.0.0",
-        "remark-gfm": "^4.0.0",
-        "remark-highlight.js": "^7.0.1"
-    },
-    "devDependencies": {
-        "@types/bun": "latest",
-        "@biomejs/biome": "^1.8.3"
-    },
-    "peerDependencies": {
-        "typescript": "^5.0.0"
-    }
+  "name": "bluejay",
+  "version": "0.2.0",
+  "description": "Build static pages with MDX, JSX/TSX components, and Bun.",
+  "main": "src/main.ts",
+  "type": "module",
+  "types": "src/types.d.ts",
+  "scripts": {
+    "check": "bunx @biomejs/biome check --write",
+    "format": "bunx @biomejs/biome format --write",
+    "lint": "bunx @biomejs/biome lint --write",
+    "dle": "BUILD_MODE=build bun test/main.tsx",
+    "serve": "BUILD_MODE=serve bun --hot test/main.tsx"
+  },
+  "dependencies": {
+    "@mdx-js/esbuild": "^3.0.1",
+    "preact": "^10.23.1",
+    "preact-render-to-string": "^6.5.7",
+    "remark-gfm": "^4.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
 }

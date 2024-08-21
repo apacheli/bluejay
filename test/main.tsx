@@ -1,16 +1,18 @@
-import { start } from "../src/main.js";
+import Page from "@components/Page";
+import { start } from "bluejay";
 
-import Page from "./components/Page.jsx";
-
-await start({
-    dir: import.meta.dir,
-    mode: Bun.env.START_MODE,
-    path: "/bluejay",
-    page: (page, pages) => {
-        return (
-            <Page title={page.module.title} description={page.module.description}>
-                <page.module.default pages={pages} />
-            </Page>
-        );
-    },
+start<any>({
+  assets: "src/assets",
+  dir: import.meta.dir,
+  dist: "dist",
+  mode: Bun.env.BUILD_MODE,
+  pages: "src/pages",
+  path: "/bluejay",
+  render: (page, pages) => {
+    return (
+      <Page {...page.mod}>
+        <page.mod.default pages={pages} />
+      </Page>
+    );
+  },
 });

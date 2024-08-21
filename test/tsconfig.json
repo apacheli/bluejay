@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["./*"],
+      "@components/*": ["./src/components/*.tsx"],
+      "bluejay": ["../src/main.tsx"],
+      "@icons/*": ["./src/icons/*"]
+    },
+    "types": ["@types/bun", "./types.d.ts"]
+  },
+  "extends": ["../tsconfig.json"]
+}
