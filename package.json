@@ -1,11 +1,12 @@
 {
     "name": "bluejay",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "description": "Build static pages with MDX, JSX/TSX components, and Bun.",
-    "main": "src/main.tsx",
+    "main": "src/main.ts",
     "type": "module",
     "exports": {
-        "./preload": "./src/plugins.ts"
+        ".": "./src/main.ts",
+        "./preload": "./src/preload.ts"
     },
     "scripts": {
         "check": "bunx @biomejs/biome check --write",
@@ -16,6 +17,7 @@
     },
     "dependencies": {
         "@mdx-js/esbuild": "^3.0.1",
+        "highlight.js": "^11.10.0",
         "preact": "^10.23.1",
         "preact-render-to-string": "^6.5.7",
         "remark-gfm": "^4.0.0"

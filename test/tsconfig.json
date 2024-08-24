@@ -1,13 +1,20 @@
 {
     "compilerOptions": {
+        "allowImportingTsExtensions": true,
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "noEmit": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "target": "ESNext",
         "paths": {
             "~/*": ["./*"],
             "@components/*": ["./src/components/*.tsx"],
             "@icons/*": ["./src/icons/*"],
-            "bluejay": ["../src/main.tsx"],
+            "bluejay": ["../src/main.ts"],
             "bluejay/": ["../"]
-        },
-        "types": ["@types/bun", "./types.d.ts"]
-    },
-    "extends": ["../tsconfig.json"]
+        }
+    }
 }

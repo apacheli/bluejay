@@ -7,8 +7,8 @@ import Header from "@components/Header";
 export interface PageProps {
     title: string;
     description: string;
-    date?: string;
-    type?: string;
+    date: string;
+    type: string;
     children: JSX.Element | JSX.Element[];
     default: (opts: { pages: BluejayPage<PageProps>[] }) => JSX.Element;
 }

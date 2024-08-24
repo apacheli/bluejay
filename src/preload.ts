@@ -1,8 +1,9 @@
-import { compile } from "@mdx-js/mdx";
+import { compile as mdxCompile } from "@mdx-js/mdx";
+import hljsPlugin from "@plugins/hljs";
 import remarkGfm from "remark-gfm";
 
 const mdxOptions = {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, hljsPlugin],
     jsxImportSource: "preact",
 };
 
@@ -12,15 +13,15 @@ Bun.plugin({
         build.onLoad({ filter: /\.mdx?$/ }, async (args) => {
             const data = await Bun.file(args.path).text();
             const hash = Bun.hash(data);
-            const cache = Bun.file(`.bluejay/cache/${hash}.js`);
+            const cache = Bun.file(`.bluejay/mdx/${hash}.js`);
             try {
                 return {
                     contents: await cache.text(),
                     loader: "js",
                 };
             } catch {
-                const compiled = await compile(data, mdxOptions);
-                /* await */ Bun.write(`.bluejay/cache/${hash}.js`, compiled.value);
+                const compiled = await mdxCompile(data, mdxOptions);
+                /* await */ Bun.write(`.bluejay/mdx/${hash}.js`, compiled.value);
                 return {
                     contents: compiled.value,
                     loader: "js",

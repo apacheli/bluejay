@@ -8,6 +8,9 @@
         "noEmit": true,
         "skipLibCheck": true,
         "strict": true,
-        "target": "ESNext"
+        "target": "ESNext",
+        "paths": {
+            "@plugins/*": ["./src/plugins/*.ts"]
+        }
     }
 }

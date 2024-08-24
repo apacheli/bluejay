@@ -21,6 +21,8 @@ export interface BluejayOptions<T> {
     redirects?: Record<string, string>;
     /** A function that handles page rendering. */
     render: (page: BluejayPage<T>, pages: BluejayPage<T>[]) => JSX.Element;
+    /** A function that runs after rendering all your pages. */
+    post?: () => Record<string, BluejayResponse>;
 }
 
 export interface BluejayPage<T> {
@@ -35,45 +37,37 @@ export interface BluejayResponse {
     type: string;
 }
 
-export const importPages = async <T,>(options: BluejayOptions<T>) => {
-    const files = await readdir(`${options.dir}/${options.pages}`, { recursive: true });
+export const importPages = async <T>(options: BluejayOptions<T>) => {
+    const pages = `${options.dir}/${options.pages}`;
+    const files = await readdir(pages, { recursive: true });
     const promises = [];
     for (let i = 0, j = files.length; i < j; i++) {
         const path = files[i];
         const ext = path.lastIndexOf(".");
         if (ext !== -1) {
-            const promise = import(`${options.dir}/${options.pages}/${path}`).then((mod) => ({
-                mod,
-                path: `/${path.slice(0, ext + 1)}html`,
-            }));
-            promises.push(promise);
+            promises.push(import(`${pages}/${path}`).then((mod) => ({ mod, path: `/${path.slice(0, ext + 1)}html` })));
         }
     }
     return Promise.all(promises);
 };
 
-export const importAssets = async <T,>(options: BluejayOptions<T>, paths: Map<string, BluejayResponse>) => {
-    const files = await readdir(`${options.dir}/${options.assets}`, { recursive: true });
+export const importAssets = async <T>(options: BluejayOptions<T>, paths: Map<string, BluejayResponse>) => {
+    const assets = `${options.dir}/${options.assets}`;
+    const files = await readdir(assets, { recursive: true });
     const promises = [];
     for (let i = 0, j = files.length; i < j; i++) {
         const path = files[i];
         const ext = path.lastIndexOf(".");
         if (ext !== -1) {
-            const file = Bun.file(`${options.dir}/${options.assets}/${path}`);
+            const file = Bun.file(`${assets}/${path}`);
             // @ts-ignore: `Blob.bytes()` is not typed.
-            const promise = file.bytes().then((data: Uint8Array) =>
-                paths.set(`${options.path}/${path.replace(/\\/g, "/")}`, {
-                    data,
-                    type: file.type,
-                }),
-            );
-            promises.push(promise);
+            promises.push(file.bytes().then((data) => paths.set(`${options.path}/${path.replace(/\\/g, "/")}`, { data, type: file.type })));
         }
     }
     return Promise.all(promises);
 };
 
-export const serve = async <T,>(options: BluejayOptions<T>) => {
+export const serve = async <T>(options: BluejayOptions<T>) => {
     console.time("serve");
     const paths = new Map<string, BluejayResponse>();
     const [pages] = await Promise.all([importPages(options), importAssets(options, paths)]);
@@ -83,6 +77,10 @@ export const serve = async <T,>(options: BluejayOptions<T>) => {
             data: `<!DOCTYPE html>${renderToStaticMarkup(options.render(page, pages))}`,
             type: "text/html",
         });
+    }
+    const files = options.post?.();
+    for (const file in files) {
+        paths.set(`${options.path}${file}`, files[file]);
     }
     console.timeEnd("serve");
 
@@ -99,24 +97,25 @@ export const serve = async <T,>(options: BluejayOptions<T>) => {
     });
 };
 
-export const build = async <T,>(options: BluejayOptions<T>) => {
+export const build = async <T>(options: BluejayOptions<T>) => {
     console.time("build");
-    const promises: unknown[] = [
-        cp(`${options.dir}/${options.assets}`, `${options.dir}/${options.dist}`, {
-            recursive: true,
-        }),
-    ];
+    const dist = `${options.dir}/${options.dist}`;
+    const promises: unknown[] = [cp(`${options.dir}/${options.assets}`, dist, { recursive: true })];
     const pages = await importPages(options);
     for (let i = 0, j = pages.length; i < j; i++) {
         const page = pages[i];
         const rendered = `<!DOCTYPE html>${renderToStaticMarkup(options.render(page, pages))}`;
-        promises.push(Bun.write(`${options.dir}/${options.dist}/${page.path}`, rendered));
+        promises.push(Bun.write(`${dist}/${page.path}`, rendered));
+    }
+    const files = options.post?.();
+    for (const file in files) {
+        promises.push(Bun.write(`${dist}${file}`, files[file].data));
     }
     await Promise.all(promises);
     console.timeEnd("build");
 };
 
-export const handleRequest = <T,>(request: Request, paths: Map<string, BluejayResponse>, options: BluejayOptions<T>) => {
+export const handleRequest = <T>(request: Request, paths: Map<string, BluejayResponse>, options: BluejayOptions<T>) => {
     const url = new URL(request.url);
     let response: BluejayResponse | undefined;
     if (url.pathname === options.path || url.pathname === `${options.path}/`) {
@@ -127,9 +126,7 @@ export const handleRequest = <T,>(request: Request, paths: Map<string, BluejayRe
     if (response !== undefined) {
         console.log(`    \x1b[32m${request.method} ${url.pathname}\x1b[39m`);
         return new Response(response.data, {
-            headers: {
-                "Content-Type": response.type,
-            },
+            headers: { "Content-Type": response.type },
         });
     }
     const redirect = options.redirects?.[url.pathname];
@@ -141,18 +138,14 @@ export const handleRequest = <T,>(request: Request, paths: Map<string, BluejayRe
     response = paths.get(`${options.path}/404.html`);
     if (response !== undefined) {
         return new Response(response.data, {
-            headers: {
-                "Content-Type": response.type,
-            },
+            headers: { "Content-Type": response.type },
             status: 404,
         });
     }
-    return new Response(`404 Not Found: ${request.method} ${url.pathname}`, {
-        status: 404,
-    });
+    return new Response(`404 Not Found: ${request.method} ${url.pathname}`, { status: 404 });
 };
 
-export const start = <T,>(options: BluejayOptions<T>) => {
+export const start = <T>(options: BluejayOptions<T>) => {
     switch (options.mode ?? "build") {
         case "build": {
             return build(options);

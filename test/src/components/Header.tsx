@@ -1,3 +1,5 @@
+import pkg from "../../../package.json" with { type: "json" };
+
 import Bars from "@icons/Bars.svg";
 import Github from "@icons/GitHub.svg";
 import Helicopter from "@icons/Helicopter.svg";
@@ -17,7 +19,7 @@ export default () => (
     <div class="main-header">
         <a href="/bluejay" class="main-header-title">
             <img src="/bluejay/icon.png" alt="bluejay icon" />
-            <span>Bluejay</span>
+            <span>Bluejay {pkg.version}</span>
         </a>
         <nav>
             <input type="checkbox" id="nav-check" />
