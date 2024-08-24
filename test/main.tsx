@@ -10,9 +10,6 @@ await start<PageProps>({
     pages: "src/pages",
     path: "/bluejay",
     render: (page, pages) => {
-        if (typeof page.mod.default !== "function") {
-            return page.mod.default.render();
-        }
         return (
             <Page {...page.mod}>
                 <page.mod.default pages={pages} />
