@@ -4,7 +4,7 @@ Build static pages with MDX, JSX/TSX components, and Bun.
 
 - :zap: Powered by Bun and Preact for maximum performance. It takes ~**10 ms** to build your files.
 - :gear: Simple and minimal without excluding essential tools such as a real time watcher.
-- :globe_with_meridians:
+- :globe_with_meridians: Generating arbitrary files allows for an infinite amount of possibilities for plugins.
 
 ## Install
 

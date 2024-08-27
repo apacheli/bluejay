@@ -244,7 +244,6 @@ svg {
 }
 
 .content pre {
-    display: grid;
     padding: 1rem;
 }
 
