@@ -1,9 +1,13 @@
 import { compile as mdxCompile } from "@mdx-js/mdx";
 import hljsPlugin from "@plugins/hljs";
+import remarkGemoji from "remark-gemoji";
 import remarkGfm from "remark-gfm";
 
+import "preact";
+import "preact-render-to-string";
+
 const mdxOptions = {
-    remarkPlugins: [remarkGfm, hljsPlugin],
+    remarkPlugins: [remarkGemoji, remarkGfm, hljsPlugin],
     jsxImportSource: "preact",
 };
 

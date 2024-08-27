@@ -1,4 +1,4 @@
-import type { BluejayPage } from "bluejay";
+import { BLUEJAY_DEV, type BluejayPage } from "bluejay";
 import type { JSX } from "preact";
 
 import Footer from "@components/Footer";
@@ -21,6 +21,7 @@ export default ({ title, description, children }: PageProps) => (
             <link rel="stylesheet" href="/bluejay/index.css" />
             <meta charset="utf8" />
             <meta name="description" content={description} />
+            <meta name="theme-color" content="#41c2f5" />
             <meta name="viewport" content="width=device-width" />
             <meta property="og:description" content={description} />
             <meta property="og:image" content="https://apache.li/bluejay/logo.png" />
@@ -32,6 +33,7 @@ export default ({ title, description, children }: PageProps) => (
             <Header />
             <main class="content">{children}</main>
             <Footer />
+            <BLUEJAY_DEV />
         </body>
     </>
 );

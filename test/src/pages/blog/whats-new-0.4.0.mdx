@@ -1,0 +1,47 @@
+export const title = "Bluejay 0.4.0"
+export const description = "See your changes in real time with the new WebSocket watcher.";
+export const type = "blog"
+export const date = "2024-08-26"
+
+# What's New in {title}?
+
+## Install
+
+```
+$ bun add https://github.com/apacheli/bluejay
+```
+
+## Additions and Bug Fixes
+
+- We added [`remark-gemoji`](https://github.com/remarkjs/remark-gemoji) to better aign with the GitHub experience.
+- Fixed a highlighting sub language implementation error.
+- `preact` and `preact-render-to-string` are preloaded which should amount to ~**15**% faster build times.
+
+### WebSocket Watcher
+
+<img src="/bluejay/wswatcher.avif" alt="The WebSocket watcher in action." />
+
+You can now see your changes occur in real time by enabling [Bun's `--hot` mode](https://bun.sh/docs/runtime/hot#hot-mode) and adding the following to your document's body:
+
+```jsx
+import { BLUEJAY_DEV } from "bluejay";
+
+const myPage = (
+    <html>
+        <head>
+            <title>Hello, World!</title>
+        </head>
+        <body>
+            <BLUEJAY_DEV />
+        </body>
+    </html>
+);
+```
+
+`<BLUEJAY_DEV />` will be ignored if `Bun.env.BUILD_MODE === "build"`.
+
+## Contributors
+
+We love contributions! [Check out our GitHub for more details.](https://github.com/apacheli/bluejay)
+
+- [apacheli](https://github.com/apacheli)

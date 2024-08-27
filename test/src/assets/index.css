@@ -31,6 +31,7 @@ svg {
     --time: 0.25s;
     --blacken: #0000001a;
     --whiten: #ffffff0d;
+    --middle: #ffffff40;
     --theme-background: #23272b;
     --theme-header: #30383b;
     --theme: #41c2f5;
@@ -49,6 +50,7 @@ svg {
     :root {
         --blacken: #ffffff70;
         --whiten: #0000000d;
+        --middle: #00000040;
         --theme-background: #eff4f8;
         --theme-header: #ffffff;
         --theme-text: #14161a;
@@ -200,7 +202,7 @@ svg {
     margin: 4rem auto;
     min-height: calc(100vh - 12rem);
     padding: 0 1rem;
-    width: min(25% + 25rem, 100%);
+    width: min(25% + 50rem, 100%);
 }
 
 .content a {
@@ -216,11 +218,9 @@ svg {
     background-color: var(--blacken);
     border-radius: 0.25rem;
     display: block;
-    height: 100%;
     margin: auto;
     max-width: 100%;
     padding: 1rem;
-    width: max-content;
 }
 
 .content h1,
@@ -240,7 +240,12 @@ svg {
     line-height: 1.5;
     font-size: 1rem;
     overflow: auto;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem;
+}
+
+.content pre {
+    display: grid;
+    padding: 1rem;
 }
 
 .content a:has(> .blog) {
@@ -270,19 +275,25 @@ svg {
     text-align: center;
 }
 
-/** https://github.com/highlightjs/highlight.js/blob/main/src/styles/atom-one-dark.css */
-/** https://github.com/highlightjs/highlight.js/blob/main/src/styles/atom-one-light.css */
+.main-footer a {
+    color: var(--theme);
+    text-decoration: none;
+}
+
+.main-footer a:hover {
+    text-decoration: underline;
+}
 
 .hljs-comment,
 .hljs-quote {
-  color: var(--hljs-0);
-  font-style: italic;
+    color: var(--hljs-0);
+    font-style: italic;
 }
 
 .hljs-doctag,
 .hljs-keyword,
 .hljs-formula {
-  color: var(--hljs-1);
+    color: var(--hljs-1);
 }
 
 .hljs-section,
@@ -290,11 +301,11 @@ svg {
 .hljs-selector-tag,
 .hljs-deletion,
 .hljs-subst {
-  color: var(--hljs-2);
+    color: var(--hljs-2);
 }
 
 .hljs-literal {
-  color: var(--hljs-3);
+    color: var(--hljs-3);
 }
 
 .hljs-string,
@@ -302,7 +313,7 @@ svg {
 .hljs-addition,
 .hljs-attribute,
 .hljs-meta .hljs-string {
-  color: var(--hljs-4);
+    color: var(--hljs-4);
 }
 
 .hljs-attr,
@@ -313,7 +324,7 @@ svg {
 .hljs-selector-attr,
 .hljs-selector-pseudo,
 .hljs-number {
-  color: var(--hljs-5);
+    color: var(--hljs-5);
 }
 
 .hljs-symbol,
@@ -322,23 +333,23 @@ svg {
 .hljs-meta,
 .hljs-selector-id,
 .hljs-title {
-  color: var(--hljs-6);
+    color: var(--hljs-6);
 }
 
 .hljs-built_in,
 .hljs-title.class_,
 .hljs-class .hljs-title {
-  color: var(--hljs-7);
+    color: var(--hljs-7);
 }
 
 .hljs-emphasis {
-  font-style: italic;
+    font-style: italic;
 }
 
 .hljs-strong {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .hljs-link {
-  text-decoration: underline;
+    text-decoration: underline;
 }

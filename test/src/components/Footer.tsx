@@ -1,13 +1,10 @@
-import pkg from "../../../package.json" with { type: "json" };
-
 export default () => (
     <div class="main-footer">
         <span>
-            Bluejay <strong>{pkg.version}</strong>
+            Running on <strong>Bun v{Bun.version}</strong>
         </span>
         <span>
-            Bun <strong>{Bun.version}</strong>
+            &copy; 2024-present apacheli. <a href="https://apache.li/">Check out my other works :&#x29;</a>
         </span>
-        <span>&copy; 2024-present apacheli</span>
     </div>
 );

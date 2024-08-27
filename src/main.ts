@@ -1,6 +1,10 @@
 import { cp, readdir } from "node:fs/promises";
+import type { Server } from "bun";
 import type { JSX } from "preact";
 import { renderToStaticMarkup } from "preact-render-to-string";
+
+import { time } from "./dev.tsx";
+export * from "./dev.tsx";
 
 export interface BluejayOptions<T> {
     /** The location of your assets. Relative to `BluejayOptions.dir`. */
@@ -91,10 +95,16 @@ export const serve = async <T>(options: BluejayOptions<T>) => {
     console.log(str);
     const port = options?.port ?? 1337;
     console.log(`Serving at \x1b[1mhttp://localhost:${port}${options.path ?? "/"}\x1b[22m\n`);
-    return Bun.serve({
+    const server = Bun.serve({
         port,
-        fetch: (request) => handleRequest(request, paths, options),
+        fetch: (request, server) => handleRequest(request, server, paths, options),
+        websocket: {
+            open: (ws) => ws.subscribe("dev"),
+            message: () => {},
+        },
     });
+    server.publish("dev", "reload");
+    return server;
 };
 
 export const build = async <T>(options: BluejayOptions<T>) => {
@@ -115,9 +125,12 @@ export const build = async <T>(options: BluejayOptions<T>) => {
     console.timeEnd("build");
 };
 
-export const handleRequest = <T>(request: Request, paths: Map<string, BluejayResponse>, options: BluejayOptions<T>) => {
+export const handleRequest = <T>(request: Request, server: Server, paths: Map<string, BluejayResponse>, options: BluejayOptions<T>) => {
     const url = new URL(request.url);
     let response: BluejayResponse | undefined;
+    if (url.pathname === `/${time}`) {
+        return server.upgrade(request) ? undefined : new Response("400 Bad Request", { status: 400 });
+    }
     if (url.pathname === options.path || url.pathname === `${options.path}/`) {
         response = paths.get(`${options.path}/index.html`);
     } else {

@@ -39,17 +39,32 @@ class HljsEmitter {
     declare endScope: typeof this.closeNode;
     declare startScope: typeof this.openNode;
 
-    declare __addSublanguage: () => void;
-    declare finalize: () => void;
-    declare toHTML: () => void;
+    __addSublanguage(emitter2: HljsEmitter, className: string) {
+        const children = this.nodes[this.nodes.length - 1].children;
+        const children2 = emitter2.nodes[0].children;
+        if (className !== undefined) {
+            children[children.length] = {
+                type: "element",
+                tagName: "span",
+                properties: { className },
+                children: children2,
+            };
+        } else {
+            for (let i = 0, j = children2.length; i < j; i++) {
+                children[children.length] = children2[i];
+            }
+        }
+    }
+
+    finalize() {}
+
+    toHTML() {
+        return "";
+    }
 }
 
-const p = HljsEmitter.prototype;
-
-// highlight.js does weird stuff.
-p.endScope = p.closeNode;
-p.startScope = p.openNode;
-p.finalize = p.__addSublanguage = p.toHTML = () => {};
+HljsEmitter.prototype.endScope = HljsEmitter.prototype.closeNode;
+HljsEmitter.prototype.startScope = HljsEmitter.prototype.openNode;
 
 hljs.configure({ __emitter: HljsEmitter });
 
