@@ -36,12 +36,12 @@ $ bun dle
 
 ## Manual Setup
 
-This is the absolute minimum amount of code required to start a Bluejay project:
+This is the _absolute_ minimum amount of code necessary to start a Bluejay project:
 
 ```tsx
 import { start } from "bluejay";
 
-start({
+await start({
     assets: "src/assets",
     dir: Bun.cwd,
     dist: "dist",
@@ -53,7 +53,3 @@ start({
     },
 });
 ```
-
-## License
-
-[License](LICENSE.txt)
