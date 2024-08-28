@@ -22,7 +22,7 @@ class HljsEmitter {
     }
 
     closeNode() {
-        this.nodes.length -= 1;
+        this.nodes.length--;
     }
 
     openNode(scopes: string) {

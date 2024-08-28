@@ -4,6 +4,8 @@ import type { JSX } from "preact";
 import Footer from "@components/Footer";
 import Header from "@components/Header";
 
+import AngleUp from "@icons/AngleUp.svg";
+
 export interface PageProps {
     title: string;
     description: string;
@@ -33,6 +35,9 @@ export default ({ title, description, children }: PageProps) => (
             <Header />
             <main class="content">{children}</main>
             <Footer />
+            <a href="#" class="scroll-to-top">
+                <AngleUp class="icon-hover" />
+            </a>
             <BLUEJAY_DEV />
         </body>
     </>

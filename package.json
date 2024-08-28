@@ -9,11 +9,13 @@
         "./preload": "./src/preload.ts"
     },
     "scripts": {
+        "clean": "rm -rf .bluejay node_modules bun.lockb",
         "check": "bunx @biomejs/biome check --write",
         "format": "bunx @biomejs/biome format --write",
         "lint": "bunx @biomejs/biome lint --write",
-        "dle": "BUILD_MODE=build bun test/main.tsx",
-        "serve": "BUILD_MODE=serve bun --hot test/main.tsx"
+        "dle": "BUILD_MODE=build bun test/src/main.tsx",
+        "serve": "BUILD_MODE=serve bun --hot test/src/main.tsx",
+        "serve:rm": "rm -rf .bluejay && bun serve"
     },
     "dependencies": {
         "@mdx-js/esbuild": "^3.0.1",

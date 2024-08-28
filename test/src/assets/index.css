@@ -223,13 +223,17 @@ svg {
     padding: 1rem;
 }
 
-.content h1,
-.content h2 {
+h1,
+h2 {
     border-bottom: 0.0625rem solid var(--whiten);
-    margin: 1rem 0;
 }
 
-.content h3 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 1rem 0;
 }
 
@@ -281,6 +285,12 @@ svg {
 
 .main-footer a:hover {
     text-decoration: underline;
+}
+
+.scroll-to-top {
+    bottom: 1rem;
+    right: 1rem;
+    position: fixed;
 }
 
 .hljs-comment,
