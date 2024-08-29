@@ -82,11 +82,16 @@ svg {
 
 .main-header {
     align-items: center;
+    background-color: var(--theme-header);
     display: flex;
+    filter: drop-shadow(0 0 0.5rem #00000040);
     height: 4rem;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 0 0.5rem;
+    position: sticky;
+    top: 0;
     width: 100%;
+    z-index: 1;
 }
 
 .main-header-title {
@@ -151,15 +156,6 @@ svg {
 }
 
 @media (max-width: 72rem) {
-    .main-header {
-        background-color: var(--theme-header);
-        filter: drop-shadow(0 0 0.5rem #00000040);
-        justify-content: space-between;
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
-
     .nav-list {
         background-color: var(--theme-header);
         display: none;

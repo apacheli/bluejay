@@ -12,6 +12,6 @@ declare module "*.mdx" {
 
 declare module "*.svg" {
     import type { JSX } from "preact";
-    const content: (props: JSX.IntrinsicAttributes) => JSX.Element;
+    const content: (props: JSX.SVGAttributes) => JSX.Element;
     export default content;
 }

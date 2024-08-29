@@ -3,7 +3,7 @@ import type { Server } from "bun";
 import type { JSX } from "preact";
 import { renderToStaticMarkup } from "preact-render-to-string";
 
-import { time } from "./dev.tsx";
+import { __WS } from "./dev.tsx";
 export * from "./dev.tsx";
 
 export interface BluejayOptions<T> {
@@ -64,7 +64,6 @@ export const importAssets = async <T>(options: BluejayOptions<T>, paths: Map<str
         const ext = path.lastIndexOf(".");
         if (ext !== -1) {
             const file = Bun.file(`${assets}/${path}`);
-            // @ts-ignore: `Blob.bytes()` is not typed.
             promises.push(file.bytes().then((data) => paths.set(`${options.path}/${path.replace(/\\/g, "/")}`, { data, type: file.type })));
         }
     }
@@ -126,28 +125,28 @@ export const build = async <T>(options: BluejayOptions<T>) => {
 };
 
 export const handleRequest = <T>(request: Request, server: Server, paths: Map<string, BluejayResponse>, options: BluejayOptions<T>) => {
-    const url = new URL(request.url);
+    const { pathname } = new URL(request.url);
     let response: BluejayResponse | undefined;
-    if (url.pathname === `/${time}`) {
-        return server.upgrade(request) ? undefined : new Response("400 Bad Request", { status: 400 });
-    }
-    if (url.pathname === options.path || url.pathname === `${options.path}/`) {
+    if (pathname === options.path || pathname === `${options.path}/`) {
         response = paths.get(`${options.path}/index.html`);
     } else {
-        response = paths.get(url.pathname) ?? paths.get(`${url.pathname}.html`);
+        response = paths.get(pathname) ?? paths.get(`${pathname}.html`);
     }
     if (response !== undefined) {
-        console.log(`    \x1b[32m${request.method} ${url.pathname}\x1b[39m`);
+        console.log(`    \x1b[32m${request.method} ${pathname}\x1b[39m`);
         return new Response(response.data, {
             headers: { "Content-Type": response.type },
         });
     }
-    const redirect = options.redirects?.[url.pathname];
+    const redirect = options.redirects?.[pathname];
     if (redirect !== undefined) {
-        console.log(`    \x1b[34m${request.method} ${url.pathname}\x1b[39m`);
+        console.log(`    \x1b[34m${request.method} ${pathname}\x1b[39m`);
         return Response.redirect(redirect);
     }
-    console.log(`    \x1b[31m${request.method} ${url.pathname}\x1b[39m`);
+    if (pathname === __WS) {
+        return server.upgrade(request) ? undefined : new Response("400 Bad Request", { status: 400 });
+    }
+    console.log(`    \x1b[31m${request.method} ${pathname}\x1b[39m`);
     response = paths.get(`${options.path}/404.html`);
     if (response !== undefined) {
         return new Response(response.data, {
@@ -155,7 +154,7 @@ export const handleRequest = <T>(request: Request, server: Server, paths: Map<st
             status: 404,
         });
     }
-    return new Response(`404 Not Found: ${request.method} ${url.pathname}`, { status: 404 });
+    return new Response(`404 Not Found: ${request.method} ${pathname}`, { status: 404 });
 };
 
 export const start = <T>(options: BluejayOptions<T>) => {

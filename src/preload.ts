@@ -14,8 +14,8 @@ const mdxOptions = {
 Bun.plugin({
     name: "mdx",
     setup: (build) => {
-        build.onLoad({ filter: /\.mdx?$/ }, async (args) => {
-            const data = await Bun.file(args.path).text();
+        build.onLoad({ filter: /\.(?:mdx?|markdown)$/i }, async ({ path }) => {
+            const data = await Bun.file(path).text();
             const hash = Bun.hash(data);
             const cache = Bun.file(`.bluejay/mdx/${hash}.js`);
             try {
@@ -24,7 +24,7 @@ Bun.plugin({
                     loader: "js",
                 };
             } catch {
-                const compiled = await mdxCompile(data, mdxOptions);
+                const compiled = await mdxCompile({ path, value: data }, mdxOptions);
                 /* await */ Bun.write(`.bluejay/mdx/${hash}.js`, compiled.value);
                 return {
                     contents: compiled.value,
@@ -38,7 +38,7 @@ Bun.plugin({
 Bun.plugin({
     name: "svg",
     setup: (build) => {
-        build.onLoad({ filter: /\.svg$/ }, async (args) => {
+        build.onLoad({ filter: /\.svg$/i }, async (args) => {
             const svg = await Bun.file(args.path).text();
             return {
                 contents: `export default p=>{const s=${svg};for(const k in p)s.props[k]=p[k];return s}`,

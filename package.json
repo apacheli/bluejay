@@ -1,6 +1,6 @@
 {
     "name": "bluejay",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "Build static pages with MDX, JSX/TSX components, and Bun.",
     "main": "src/main.ts",
     "type": "module",

@@ -16,7 +16,7 @@ export interface PageProps {
 }
 
 export default ({ title, description, children }: PageProps) => (
-    <>
+    <html lang="en">
         <head>
             <title>{`Bluejay - ${title}`}</title>
             <link rel="icon" href="/bluejay/icon.png" />
@@ -35,10 +35,10 @@ export default ({ title, description, children }: PageProps) => (
             <Header />
             <main class="content">{children}</main>
             <Footer />
-            <a href="#" class="scroll-to-top">
+            <a href="#" class="scroll-to-top" aria-label="scroll to top">
                 <AngleUp class="icon-hover" />
             </a>
             <BLUEJAY_DEV />
         </body>
-    </>
+    </html>
 );

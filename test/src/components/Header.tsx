@@ -11,14 +11,14 @@ const nav = [
 ];
 
 const socials = [
-    { href: "https://apache.li/", icon: Helicopter },
-    { href: "https://github.com/apacheli/bluejay", icon: Github },
+    { href: "https://apache.li/", icon: Helicopter, text: "apacheli" },
+    { href: "https://github.com/apacheli/bluejay", icon: Github, text: "github" },
 ];
 
 export default () => (
     <div class="main-header">
         <a href="/bluejay" class="main-header-title">
-            <img src="/bluejay/icon.png" alt="bluejay icon" />
+            <img src="/bluejay/icon.png" alt="bluejay icon" height="48" width="48" />
             <span>Bluejay {pkg.version}</span>
         </a>
         <nav>
@@ -32,14 +32,14 @@ export default () => (
             <ul class="any-list nav-list">
                 {nav.map((li) => (
                     <li>
-                        <a href={li.href} class="nav-button">
+                        <a href={li.href} class="nav-button" aria-label={li.text}>
                             {li.text}
                         </a>
                     </li>
                 ))}
                 {socials.map((li) => (
                     <li>
-                        <a href={li.href} class="icon-hover nav-icon">
+                        <a href={li.href} class="icon-hover nav-icon" aria-label={li.text}>
                             <li.icon />
                         </a>
                     </li>
