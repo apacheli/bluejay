@@ -10,7 +10,7 @@ export default ({ pages }: { pages: BluejayPage<PageProps>[] }) => (
     <>
         <h1>Blog</h1>
         {pages
-            .filter((page) => page.mod.type === "blog")
+            .filter((page) => !page.mod.hidden && page.mod.type === "blog")
             .sort((a, b) => b.mod.date.localeCompare(a.mod.date))
             .map((page) => (
                 <Article {...page.mod} url={`/bluejay${page.path.slice(0, -5)}`} />
