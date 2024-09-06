@@ -13,8 +13,7 @@
             "~/*": ["./*"],
             "@components/*": ["./src/components/*.tsx"],
             "@icons/*": ["./src/icons/*"],
-            "bluejay": ["../src/main.ts"],
-            "bluejay/": ["../"]
+            "bluejay": ["../src/main.ts"]
         }
     }
 }

@@ -1,4 +1,4 @@
-import { BLUEJAY_DEV, type BluejayPage } from "bluejay";
+import { BLUEJAY_DEV, type Page } from "bluejay";
 import type { JSX } from "preact";
 
 import Footer from "@components/Footer";
@@ -12,7 +12,8 @@ export interface PageProps {
     date: string;
     type: string;
     children: JSX.Element | JSX.Element[];
-    default: (opts: { pages: BluejayPage<PageProps>[] }) => JSX.Element;
+    hidden?: boolean;
+    default: (opts: { pages: Page<PageProps>[] }) => JSX.Element;
 }
 
 export default ({ title, description, children }: PageProps) => (

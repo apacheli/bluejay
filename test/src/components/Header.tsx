@@ -1,6 +1,7 @@
 import pkg from "../../../package.json" with { type: "json" };
 
 import Bars from "@icons/Bars.svg";
+import Discord from "@icons/Discord.svg";
 import Github from "@icons/GitHub.svg";
 import Helicopter from "@icons/Helicopter.svg";
 import Xmark from "@icons/Xmark.svg";
@@ -8,11 +9,9 @@ import Xmark from "@icons/Xmark.svg";
 const nav = [
     { href: "/bluejay/blog", text: "Blog" },
     { href: "/bluejay/community", text: "Community" },
-];
-
-const socials = [
-    { href: "https://apache.li/", icon: Helicopter, text: "apacheli" },
-    { href: "https://github.com/apacheli/bluejay", icon: Github, text: "github" },
+    { href: "https://apache.li/", icon: Helicopter, text: "apache.li" },
+    { href: "https://github.com/apacheli/bluejay", icon: Github, text: "GitHub" },
+    { href: "https://apache.li/discord", icon: Discord, text: "Discord" },
 ];
 
 export default () => (
@@ -32,15 +31,8 @@ export default () => (
             <ul class="any-list nav-list">
                 {nav.map((li) => (
                     <li>
-                        <a href={li.href} class="nav-button" aria-label={li.text}>
-                            {li.text}
-                        </a>
-                    </li>
-                ))}
-                {socials.map((li) => (
-                    <li>
-                        <a href={li.href} class="icon-hover nav-icon" aria-label={li.text}>
-                            <li.icon />
+                        <a href={li.href} class={li.icon ? "icon-hover nav-icon" : "nav-button"} aria-label={li.text}>
+                            {li.icon ? <li.icon /> : li.text}
                         </a>
                     </li>
                 ))}

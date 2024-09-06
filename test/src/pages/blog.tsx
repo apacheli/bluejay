@@ -4,7 +4,7 @@ import Article from "@components/Article";
 import type { PageProps } from "@components/Page";
 
 export const title = "Blog";
-export const description = "Keep up with the latest updates regarding Bluejay development.";
+export const description = "Build static pages with MDX, JSX/TSX components, and Bun.";
 
 export default ({ pages }: { pages: BluejayPage<PageProps>[] }) => (
     <>

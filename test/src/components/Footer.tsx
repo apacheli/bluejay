@@ -6,5 +6,6 @@ export default () => (
         <span>
             &copy; 2024-present apacheli. <a href="https://apache.li/">Check out my other works :&#x29;</a>
         </span>
+        <span>We don't collect your data.</span>
     </div>
 );
