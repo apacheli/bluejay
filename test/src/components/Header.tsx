@@ -7,8 +7,8 @@ import Helicopter from "@icons/Helicopter.svg";
 import Xmark from "@icons/Xmark.svg";
 
 const nav = [
-    { href: "/bluejay/blog", text: "Blog" },
-    { href: "/bluejay/community", text: "Community" },
+    { href: `${Bun.env.BLUEJAY_PATH}/blog`, text: "Blog" },
+    { href: `${Bun.env.BLUEJAY_PATH}/community`, text: "Community" },
     { href: "https://apache.li/", icon: Helicopter, text: "apache.li" },
     { href: "https://github.com/apacheli/bluejay", icon: Github, text: "GitHub" },
     { href: "https://apache.li/discord", icon: Discord, text: "Discord" },
@@ -16,8 +16,8 @@ const nav = [
 
 export default () => (
     <div class="main-header">
-        <a href="/bluejay" class="main-header-title">
-            <img src="/bluejay/icon.png" alt="bluejay icon" height="48" width="48" />
+        <a href={Bun.env.BLUEJAY_PATH} class="main-header-title">
+            <img src={`${Bun.env.BLUEJAY_PATH}/icon.png`} alt="bluejay icon" height="48" width="48" />
             <span>Bluejay {pkg.version}</span>
         </a>
         <nav>

@@ -1,5 +1,7 @@
 import { compile as mdxCompile } from "@mdx-js/mdx";
-import hljsPlugin from "@plugins/hljs";
+import alertPlugin from "@plugins/alert";
+import highlightPlugin from "@plugins/highlight";
+import slugPlugin from "@plugins/slug";
 import remarkGemoji from "remark-gemoji";
 import remarkGfm from "remark-gfm";
 
@@ -7,7 +9,7 @@ import "preact";
 import "preact-render-to-string";
 
 const mdxOptions = {
-    remarkPlugins: [remarkGemoji, remarkGfm, hljsPlugin],
+    remarkPlugins: [remarkGemoji, remarkGfm, alertPlugin, highlightPlugin, slugPlugin],
     jsxImportSource: "preact",
 };
 
@@ -17,7 +19,8 @@ Bun.plugin({
         build.onLoad({ filter: /\.(?:mdx?|markdown)$/i }, async ({ path }) => {
             const data = await Bun.file(path).text();
             const hash = Bun.hash(data);
-            const cache = Bun.file(`.bluejay/mdx/${hash}.js`);
+            const filePath = `${Bun.cwd}.bluejay/mdx/${hash}.js`;
+            const cache = Bun.file(filePath);
             try {
                 return {
                     contents: await cache.text(),
@@ -25,7 +28,7 @@ Bun.plugin({
                 };
             } catch {
                 const compiled = await mdxCompile({ path, value: data }, mdxOptions);
-                /* await */ Bun.write(`.bluejay/mdx/${hash}.js`, compiled.value);
+                /* await */ Bun.write(filePath, compiled.value);
                 return {
                     contents: compiled.value,
                     loader: "js",

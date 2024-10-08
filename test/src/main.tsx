@@ -6,9 +6,7 @@ await start<PageProps>({
     assets: "assets",
     dir: import.meta.dir,
     dist: "../dist",
-    mode: Bun.env.BUILD_MODE as "build" | "serve",
     pages: "pages",
-    path: "/bluejay",
     render: (page, pages) => {
         return (
             <Page {...page.mod}>

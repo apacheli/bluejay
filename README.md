@@ -1,5 +1,6 @@
 # Bluejay
 
+> [!WARNING]
 > Bluejay is currently under development. Don't hesitate to open an issue if you find bugs.
 
 Build static pages with MDX, JSX/TSX components, and Bun.
@@ -23,6 +24,7 @@ You will need **Bun v1.1.x** or higher to install Bluejay.
 $ bun add https://github.com/apacheli/bluejay
 ```
 
+> [!NOTE]
 > Binaries will soon be available on JSR whenever Bluejay becomes stable.
 
 ## Getting Started
