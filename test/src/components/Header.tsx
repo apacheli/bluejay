@@ -9,6 +9,8 @@ import Xmark from "@icons/Xmark.svg";
 const nav = [
     { href: `${Bun.env.BLUEJAY_PATH}/blog`, text: "Blog" },
     { href: `${Bun.env.BLUEJAY_PATH}/community`, text: "Community" },
+    { href: `${Bun.env.BLUEJAY_PATH}/docs`, text: "Documentation" },
+    { href: `${Bun.env.BLUEJAY_PATH}/guide`, text: "Guide" },
     { href: "https://apache.li/", icon: Helicopter, text: "apache.li" },
     { href: "https://github.com/apacheli/bluejay", icon: Github, text: "GitHub" },
     { href: "https://apache.li/discord", icon: Discord, text: "Discord" },

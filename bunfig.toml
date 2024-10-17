@@ -1,1 +1,1 @@
-preload = ["./src/preload.ts"]
+preload = ["./src/mdx.ts"]

@@ -18,8 +18,6 @@ export interface BluejayOptions<T> {
     notFound?: string;
     /** The location of your pages. Relative to `options.dir`. */
     pages: string;
-    /** Local port. */
-    port?: number;
     /** A record of paths for redirection. */
     redirects?: Record<string, string>;
     /** A function that handles page rendering. */
@@ -54,7 +52,7 @@ export const importPages = async <T>(options: BluejayOptions<T>) => {
     return Promise.all(promises);
 };
 
-export const importAssets = async <T>(options: BluejayOptions<T>, paths: Map<string, BluejayResponse>) => {
+export const importAssets = async <T>(options: BluejayOptions<T>, paths: Record<string, BluejayResponse>) => {
     const assets = `${options.dir}/${options.assets}`;
     const files = await readdir(assets, { recursive: true });
     const promises = [];
@@ -63,7 +61,11 @@ export const importAssets = async <T>(options: BluejayOptions<T>, paths: Map<str
         const ext = path.lastIndexOf(".");
         if (ext !== -1) {
             const file = Bun.file(`${assets}/${path}`);
-            promises.push(file.bytes().then((data) => paths.set(`${Bun.env.BLUEJAY_PATH}/${path.replace(/\\/g, "/")}`, { data, type: file.type })));
+            promises.push(
+                file.bytes().then((data) => {
+                    paths[`${Bun.env.BLUEJAY_PATH}/${path.replace(/\\/g, "/")}`] = { data, type: file.type };
+                }),
+            );
         }
     }
     return Promise.all(promises);
@@ -71,29 +73,28 @@ export const importAssets = async <T>(options: BluejayOptions<T>, paths: Map<str
 
 export const serve = async <T>(options: BluejayOptions<T>) => {
     console.time("serve");
-    const paths = new Map<string, BluejayResponse>();
+    const paths: Record<string, BluejayResponse> = {};
     const [pages] = await Promise.all([importPages(options), importAssets(options, paths)]);
     for (let i = 0, j = pages.length; i < j; i++) {
         const page = pages[i];
-        paths.set(`${Bun.env.BLUEJAY_PATH}${page.path.replace(/\\/g, "/")}`, {
+        paths[`${Bun.env.BLUEJAY_PATH}${page.path.replace(/\\/g, "/")}`] = {
             data: `<!DOCTYPE html>${renderToStaticMarkup(options.render(page, pages))}`,
             type: "text/html",
-        });
+        };
     }
     const files = options.post?.();
     for (const file in files) {
-        paths.set(`${Bun.env.BLUEJAY_PATH}${file}`, files[file]);
+        paths[`${Bun.env.BLUEJAY_PATH}${file}`] = files[file];
     }
     console.timeEnd("serve");
 
     let str = "\n";
-    for (const path of paths.keys()) {
-        str += `    \x1b[36m${path}\x1b[39m (\x1b[1m${paths.get(path)?.data.length}\x1b[22m B)\n`;
+    for (const path in paths) {
+        str += `    \x1b[36m${path}\x1b[39m (\x1b[1m${paths[path].data.length}\x1b[22m B)\n`;
     }
     console.log(str);
-    const port = options?.port ?? 1337;
-    const url = `http://localhost:${port}${Bun.env.BLUEJAY_PATH ?? "/"}`;
-    console.log(`Serving at \x1b[1m${url}\x1b[22m\n`);
+    const port = Bun.env.BLUEJAY_PORT ?? 1337;
+    console.log(`Serving at \x1b[34mhttp://localhost:\x1b[39m\x1b[36m${port}\x1b[39m\x1b[34m${Bun.env.BLUEJAY_PATH}\x1b[39m\n`);
     const server = Bun.serve({
         port,
         fetch: (request, server) => handleRequest(request, server, paths, options),
@@ -122,15 +123,16 @@ export const build = async <T>(options: BluejayOptions<T>) => {
     }
     await Promise.all(promises);
     console.timeEnd("build");
+    console.log(`\nBuilt files to \x1b[1m${dist}\x1b[22m`);
 };
 
-export const handleRequest = <T>(request: Request, server: Server, paths: Map<string, BluejayResponse>, options: BluejayOptions<T>) => {
-    const { pathname } = new URL(request.url);
+export const handleRequest = <T>(request: Request, server: Server, paths: Record<string, BluejayResponse>, options: BluejayOptions<T>) => {
+    const pathname = request.url.slice(request.url.indexOf("/", 8));
     let response: BluejayResponse | undefined;
     if (pathname === Bun.env.BLUEJAY_PATH || pathname === `${Bun.env.BLUEJAY_PATH}/`) {
-        response = paths.get(options.index ?? `${Bun.env.BLUEJAY_PATH}/index.html`);
+        response = paths[options.index ?? `${Bun.env.BLUEJAY_PATH}/index.html`];
     } else {
-        response = paths.get(pathname) ?? paths.get(`${pathname}.html`);
+        response = paths[pathname] ?? paths[`${pathname}.html`];
     }
     if (response !== undefined) {
         console.log(`    \x1b[32m${request.method} ${pathname}\x1b[39m`);
@@ -147,14 +149,13 @@ export const handleRequest = <T>(request: Request, server: Server, paths: Map<st
         return server.upgrade(request) ? undefined : new Response("400 Bad Request", { status: 400 });
     }
     console.log(`    \x1b[31m${request.method} ${pathname}\x1b[39m`);
-    response = paths.get(options.notFound ?? `${Bun.env.BLUEJAY_PATH}/404.html`);
+    response = paths[options.notFound ?? `${Bun.env.BLUEJAY_PATH}/404.html`];
     if (response !== undefined) {
         return new Response(response.data, {
             headers: { "Content-Type": response.type },
             status: 404,
         });
     }
-    return new Response(`404 Not Found: ${request.method} ${pathname}`, { status: 404 });
 };
 
 export const start = <T>(options: BluejayOptions<T>) => {

@@ -1,7 +1,7 @@
 # Bluejay
 
 > [!WARNING]
-> Bluejay is currently under development. Don't hesitate to open an issue if you find bugs.
+> Bluejay is currently under development. Please open an issue if you find bugs.
 
 Build static pages with MDX, JSX/TSX components, and Bun.
 
@@ -61,7 +61,17 @@ await start({
     dir: import.meta.dir,
     dist: "dist",
     pages: "pages",
-    path: "",
     render: (page) => <page.mod.default />,
 });
 ```
+
+Bluejay environment variables:
+
+```sh
+BLUEJAY_MODE=build
+BLUEJAY_PATH=
+BLUEJAY_PORT=1337
+```
+
+> [!NOTE]
+> Documentation is coming soon!

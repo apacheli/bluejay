@@ -1,0 +1,42 @@
+export const title = "Bluejay 0.6.0"
+export const description = "Bluejay opens your default browser when starting up the development server. We've made a few other minor optimizations and improvements. We're also working on an official guide."
+export const type = "blog"
+export const date = "2024-10-14"
+
+# What's New in Bluejay 0.6.0?
+
+## Install
+
+```
+$ bun add https://github.com/apacheli/bluejay
+```
+
+## Browser on Start
+
+Bluejay will now open your default browser when starting the development server.
+
+## Preload Changes
+
+`bluejay/preload` has been renamed to `bluejay/mdx`. We plan to support more template languages in the future with this change.
+
+## `BLUEJAY_PORT`
+
+Removed `options.port` in favor of using the `BLUEJAY_PORT` environment variable.
+
+Bluejay defaults to port `1337` if unset.
+
+## Server Optimizations
+
+The development server has been optimized when parsing URLs by ~**14.6**x, but you may experience minor inaccuracies. Common use cases shouldn't be affected, however.
+
+## Other Updates
+
+We're currently working on proper documentation and a guide for Bluejay.
+
+As Bluejay comes closer to stabilization, we also hope to release binaries to [JSR](https://jsr.io/).
+
+## Contributors
+
+We love contributions! [Check out our GitHub for more details.](https://github.com/apacheli/bluejay)
+
+- [apacheli](https://github.com/apacheli)
