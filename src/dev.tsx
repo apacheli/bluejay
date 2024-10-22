@@ -13,3 +13,5 @@ ws.onopen = () => {
 };`);
 
 export const BLUEJAY_DEV = () => (Bun.env.BLUEJAY_MODE === "serve" ? <script src={`data:text/javascript;base64,${script}`} /> : undefined);
+
+export const BLUEJAY_DEV_HTML = Bun.env.BLUEJAY_MODE === "serve" ? `<script src="data:text/javascript;base64,${script}"></script>` : "";

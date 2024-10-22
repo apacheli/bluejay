@@ -1,3 +1,4 @@
 /.bluejay
-/test/dist
+/test/*/dist
+/website/dist
 /node_modules

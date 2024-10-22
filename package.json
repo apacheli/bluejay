@@ -6,16 +6,20 @@
     "type": "module",
     "exports": {
         ".": "./src/main.ts",
-        "./mdx": "./src/mdx.ts"
+        "./mdx": "./src/preload/mdx.ts",
+        "./svelte": "./src/preload/svelte.ts",
+        "./vue": "./src/preload/vue.ts"
     },
     "scripts": {
-        "clean": "rm -rf .bluejay node_modules bun.lockb",
+        "clean": "bun clean:bj && rm -rf node_modules bun.lockb",
+        "clean:bj": "rm -rf .bluejay",
         "check": "bunx @biomejs/biome check --write",
         "format": "bunx @biomejs/biome format --write",
         "lint": "bunx @biomejs/biome lint --write",
-        "dle": "BLUEJAY_MODE=build bun test/src/main.tsx",
-        "serve": "BLUEJAY_MODE=serve bun --hot test/src/main.tsx",
-        "serve:rm": "rm -rf .bluejay && bun serve"
+        "dle": "BLUEJAY_MODE=build bun website/src/main.tsx",
+        "serve": "BLUEJAY_MODE=serve bun --hot website/src/main.tsx",
+        "serve:rm": "bun clean:bj && bun serve",
+        "serve:svelte": "BLUEJAY_MODE=serve BLUEJAY_PATH=/svelte bun --hot test/svelte/main.ts"
     },
     "dependencies": {
         "@mdx-js/mdx": "^3.0.1",
@@ -24,7 +28,8 @@
         "preact": "^10.23.1",
         "preact-render-to-string": "^6.5.7",
         "remark-gemoji": "^8.0.0",
-        "remark-gfm": "^4.0.0"
+        "remark-gfm": "^4.0.0",
+        "svelte": "^5.0.3"
     },
     "devDependencies": {
         "@biomejs/biome": "^1.8.3",
