@@ -3,17 +3,18 @@ import { BLUEJAY_DEV, start } from "bluejay";
 import { render } from "svelte/server";
 
 interface Page {
-    default: (...args: any) => any,
+    // biome-ignore lint/suspicious/noExplicitAny: womp womp
+    default: (...args: any) => any;
     css: string;
 }
 
 await start<Page>({
     assets: "assets",
     dir: import.meta.dir,
-    dist: "../dist",
+    dist: "dist",
     pages: "pages",
     render: (page) => {
-        const { head, body } = render(page.mod.default, {});
-        return `<html lang="en"><head><style>${page.mod.css}</style>${head}</head><body>${body}${BLUEJAY_DEV}</body></html>`;
+        const { head, body } = render(page.mod.default);
+        return `<html lang="en"><head>${head}<link rel="stylesheet" href="/svelte/index.css" /><style>${page.mod.css}</style></head><body>${body}${BLUEJAY_DEV}</body></html>`;
     },
 });

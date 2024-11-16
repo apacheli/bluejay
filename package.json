@@ -17,19 +17,13 @@
         "format": "bunx @biomejs/biome format --write",
         "lint": "bunx @biomejs/biome lint --write",
         "dle": "BLUEJAY_MODE=build bun website/src/main.tsx",
+        "dle:svelte": "BLUEJAY_MODE=build bun test/svelte/main.ts",
         "serve": "BLUEJAY_MODE=serve bun --hot website/src/main.tsx",
         "serve:rm": "bun clean:bj && bun serve",
         "serve:svelte": "BLUEJAY_MODE=serve BLUEJAY_PATH=/svelte bun --hot test/svelte/main.ts"
     },
     "dependencies": {
-        "@mdx-js/mdx": "^3.0.1",
-        "highlight.js": "^11.10.0",
-        "open": "^10.1.0",
-        "preact": "^10.23.1",
-        "preact-render-to-string": "^6.5.7",
-        "remark-gemoji": "^8.0.0",
-        "remark-gfm": "^4.0.0",
-        "svelte": "^5.0.3"
+        "open": "^10.1.0"
     },
     "devDependencies": {
         "@biomejs/biome": "^1.8.3",
@@ -37,5 +31,14 @@
     },
     "peerDependencies": {
         "typescript": "^5.0.0"
+    },
+    "optionalDependencies": {
+        "@mdx-js/mdx": "^3.0.1",
+        "highlight.js": "^11.10.0",
+        "preact": "^10.23.1",
+        "preact-render-to-string": "^6.5.7",
+        "remark-gemoji": "^8.0.0",
+        "remark-gfm": "^4.0.0",
+        "svelte": "^5.0.3"
     }
 }

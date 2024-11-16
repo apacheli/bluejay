@@ -15,5 +15,9 @@
                 "useJsxKeyInIterable": "off"
             }
         }
+    },
+    "files": {
+        "ignore": [".bluejay"],
+        "ignoreUnknown": true
     }
 }

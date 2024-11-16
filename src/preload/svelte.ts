@@ -21,7 +21,7 @@ Bun.plugin({
                     name: "SvelteComponent",
                     preserveWhitespace: false,
                 });
-                const contents = `${js.code}\n\nexport const css = ${JSON.stringify(css.code)}`;
+                const contents = `${js.code}\n\nexport const css = ${JSON.stringify(css.code)};\n`;
                 /* await */ Bun.write(filePath, contents);
                 return {
                     contents,

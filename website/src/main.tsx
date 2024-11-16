@@ -9,13 +9,11 @@ await start<PageProps>({
     dist: "../dist",
     pages: "pages",
     render: (page, pages) => {
-        return (
-            "<DOCTYPE html>" +
-            renderToStaticMarkup(
-                <Page {...page.mod}>
-                    <page.mod.default pages={pages} />
-                </Page>,
-            )
+        const html = renderToStaticMarkup(
+            <Page {...page.mod}>
+                <page.mod.default pages={pages} />
+            </Page>,
         );
+        return `<DOCTYPE html>${html}`;
     },
 });
