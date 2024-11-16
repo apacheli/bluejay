@@ -1,2 +1,2 @@
 export * from "./build.ts";
-export * from "./dev.tsx";
+export * from "./dev.ts";

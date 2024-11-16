@@ -39,7 +39,7 @@ export default ({ title, description, children }: PageProps) => (
             <a href="#" class="scroll-to-top" aria-label="scroll to top">
                 <AngleUp class="icon-hover" />
             </a>
-            <BLUEJAY_DEV />
+            {Bun.env.BLUEJAY_MODE === "serve" ? <script src="data:text/javascript;base64,${BLUEJAY_WS_SCRIPT}" /> : undefined}
         </body>
     </html>
 );

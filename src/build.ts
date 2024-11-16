@@ -1,7 +1,7 @@
 import { cp, readdir } from "node:fs/promises";
 import type { Server } from "bun";
 
-import { BLUEJAY_WS } from "./dev.tsx";
+import { BLUEJAY_WS } from "./dev.ts";
 
 export interface BluejayOptions<T> {
     /** The location of your assets. Relative to `options.dir`. */
