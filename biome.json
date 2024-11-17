@@ -17,7 +17,7 @@
         }
     },
     "files": {
-        "ignore": [".bluejay"],
+        "ignore": [".bluejay", "test/svelte/dist", "website/dist"],
         "ignoreUnknown": true
     }
 }

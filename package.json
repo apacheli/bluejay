@@ -11,15 +11,15 @@
         "./vue": "./src/preload/vue.ts"
     },
     "scripts": {
-        "clean": "bun clean:bj && rm -rf node_modules bun.lockb",
-        "clean:bj": "rm -rf .bluejay",
+        "clean": "bun clean:bluejay && rm -rf node_modules bun.lockb",
+        "clean:bluejay": "rm -rf .bluejay",
         "check": "bunx @biomejs/biome check --write",
         "format": "bunx @biomejs/biome format --write",
         "lint": "bunx @biomejs/biome lint --write",
         "dle": "BLUEJAY_MODE=build bun website/src/main.tsx",
         "dle:svelte": "BLUEJAY_MODE=build bun test/svelte/main.ts",
         "serve": "BLUEJAY_MODE=serve bun --hot website/src/main.tsx",
-        "serve:rm": "bun clean:bj && bun serve",
+        "serve:rm": "bun clean:bluejay && bun serve",
         "serve:svelte": "BLUEJAY_MODE=serve BLUEJAY_PATH=/svelte bun --hot test/svelte/main.ts"
     },
     "dependencies": {

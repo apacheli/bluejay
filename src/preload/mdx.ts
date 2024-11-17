@@ -1,11 +1,9 @@
 import { compile } from "@mdx-js/mdx";
-import alertPlugin from "@plugins/alert";
-import highlightPlugin from "@plugins/highlight";
-import slugPlugin from "@plugins/slug";
+import alertPlugin from "@plugins/mdx/alert";
+import highlightPlugin from "@plugins/mdx/highlight";
+import slugPlugin from "@plugins/mdx/slug";
 import remarkGemoji from "remark-gemoji";
 import remarkGfm from "remark-gfm";
-
-import "./_open.ts";
 
 const mdxOptions = {
     remarkPlugins: [remarkGemoji, remarkGfm, alertPlugin, highlightPlugin, slugPlugin],

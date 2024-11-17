@@ -1,7 +1,5 @@
 import { compile } from "svelte/compiler";
 
-import "./_open.ts";
-
 Bun.plugin({
     name: "svelte",
     setup: (build) => {

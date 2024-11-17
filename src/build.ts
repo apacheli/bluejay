@@ -1,7 +1,10 @@
 import { cp, readdir } from "node:fs/promises";
 import type { Server } from "bun";
+import open from "open";
 
 import { BLUEJAY_WS } from "./dev.ts";
+
+export let BROWSER_OPENED = false;
 
 export interface BluejayOptions<T> {
     /** The location of your assets. Relative to `options.dir`. */
@@ -102,6 +105,10 @@ export const serve = async <T>(options: BluejayOptions<T>) => {
         },
     });
     server.publish("dev", "reload");
+    if (!BROWSER_OPENED && Bun.env.BLUEJAY_MODE === "serve") {
+        BROWSER_OPENED = true;
+        /* await */ open(`http://localhost:${Bun.env.BLUEJAY_PORT ?? 1337}${Bun.env.BLUEJAY_PATH}`);
+    }
     return server;
 };
 
