@@ -1,5 +1,9 @@
+---
+title: hello this is a title
+---
+
 <svelte:head>
-  <title>this is a title</title>
+  <title>{title}</title>
 </svelte:head>
 
 <script>
@@ -17,3 +21,7 @@ const link = "https://svelte.dev/";
 <p><a href={link}>Click here to learn more about Svelte.</a></p>
 
 <h2><a href={Bun.env.BLUEJAY_PATH}>go back</a></h2>
+
+```js
+const hello = "code block";
+```

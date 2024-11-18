@@ -4,7 +4,7 @@ import open from "open";
 
 import { BLUEJAY_WS } from "./dev.ts";
 
-export let BROWSER_OPENED = false;
+globalThis.BROWSER_OPENED ||= false;
 
 export interface BluejayOptions<T> {
     /** The location of your assets. Relative to `options.dir`. */
