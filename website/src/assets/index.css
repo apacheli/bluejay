@@ -202,7 +202,7 @@ svg {
     margin: 4rem auto;
     min-height: calc(100vh - 12rem);
     padding: 0 1rem;
-    width: min(25% + 50rem, 100%);
+    width: min(25% + 25rem, 100%);
 }
 
 .content a {
