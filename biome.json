@@ -15,5 +15,9 @@
                 "useJsxKeyInIterable": "off"
             }
         }
+    },
+    "files": {
+        "ignore": [".bluejay", "test/svelte/dist", "website/dist"],
+        "ignoreUnknown": true
     }
 }

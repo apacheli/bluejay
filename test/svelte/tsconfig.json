@@ -10,8 +10,9 @@
         "strict": true,
         "target": "ESNext",
         "paths": {
-            "@plugins/*": ["./src/plugins/*.ts"],
-            "@preload/*": ["./src/preload/*.ts"]
+            "~/*": ["./*"],
+            "@preload/*": ["../../src/preload/*.ts"],
+            "bluejay": ["../../src/main.ts"]
         }
     }
 }

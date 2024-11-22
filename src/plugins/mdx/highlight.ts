@@ -4,6 +4,7 @@ import hljs from "highlight.js";
 import { visit } from "unist-util-visit";
 
 class HljsEmitter {
+    // biome-ignore lint/suspicious/noExplicitAny: womp womp
     nodes: any[] = [{ type: "root", children: [] }];
 
     constructor(public options: unknown) {}

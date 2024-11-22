@@ -1,6 +1,6 @@
-import { start } from "bluejay";
-
 import Page, { type PageProps } from "@components/Page";
+import { start } from "bluejay";
+import { renderToStaticMarkup } from "preact-render-to-string";
 
 await start<PageProps>({
     assets: "assets",
@@ -8,10 +8,10 @@ await start<PageProps>({
     dist: "../dist",
     pages: "pages",
     render: (page, pages) => {
-        return (
+        return renderToStaticMarkup(
             <Page {...page.mod}>
                 <page.mod.default pages={pages} />
-            </Page>
+            </Page>,
         );
     },
 });

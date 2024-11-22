@@ -1,9 +1,11 @@
 import { cp, readdir } from "node:fs/promises";
 import type { Server } from "bun";
-import type { JSX } from "preact";
-import { renderToStaticMarkup } from "preact-render-to-string";
+import open from "open";
 
 import { BLUEJAY_WS } from "./dev.tsx";
+
+// @ts-ignore: wah
+globalThis.BROWSER_OPENED ||= false;
 
 export interface BluejayOptions<T> {
     /** The location of your assets. Relative to `options.dir`. */
@@ -21,7 +23,7 @@ export interface BluejayOptions<T> {
     /** A record of paths for redirection. */
     redirects?: Record<string, string>;
     /** A function that handles page rendering. */
-    render: (page: BluejayPage<T>, pages: BluejayPage<T>[]) => JSX.Element;
+    render: (page: BluejayPage<T>, pages: BluejayPage<T>[]) => string;
     /** A function that runs after rendering all your pages. */
     post?: () => Record<string, BluejayResponse>;
 }
@@ -78,7 +80,7 @@ export const serve = async <T>(options: BluejayOptions<T>) => {
     for (let i = 0, j = pages.length; i < j; i++) {
         const page = pages[i];
         paths[`${Bun.env.BLUEJAY_PATH}${page.path.replace(/\\/g, "/")}`] = {
-            data: `<!DOCTYPE html>${renderToStaticMarkup(options.render(page, pages))}`,
+            data: `<!DOCTYPE html>${options.render(page, pages)}`,
             type: "text/html",
         };
     }
@@ -104,6 +106,10 @@ export const serve = async <T>(options: BluejayOptions<T>) => {
         },
     });
     server.publish("dev", "reload");
+    if (!BROWSER_OPENED && Bun.env.BLUEJAY_MODE === "serve") {
+        BROWSER_OPENED = true;
+        /* await */ open(`http://localhost:${Bun.env.BLUEJAY_PORT ?? 1337}${Bun.env.BLUEJAY_PATH}`);
+    }
     return server;
 };
 
@@ -114,7 +120,7 @@ export const build = async <T>(options: BluejayOptions<T>) => {
     const pages = await importPages(options);
     for (let i = 0, j = pages.length; i < j; i++) {
         const page = pages[i];
-        const rendered = `<!DOCTYPE html>${renderToStaticMarkup(options.render(page, pages))}`;
+        const rendered = `<!DOCTYPE html>${options.render(page, pages)}`;
         promises.push(Bun.write(`${dist}/${page.path}`, rendered));
     }
     const files = options.post?.();
@@ -156,6 +162,7 @@ export const handleRequest = <T>(request: Request, server: Server, paths: Record
             status: 404,
         });
     }
+    return new Response("404 Not Found", { status: 404 });
 };
 
 export const start = <T>(options: BluejayOptions<T>) => {

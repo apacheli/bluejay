@@ -1,22 +1,14 @@
-import { compile as mdxCompile } from "@mdx-js/mdx";
-import alertPlugin from "@plugins/alert";
-import highlightPlugin from "@plugins/highlight";
-import slugPlugin from "@plugins/slug";
-import open from "open";
+import { compile } from "@mdx-js/mdx";
+import alertPlugin from "@plugins/mdx/alert";
+import highlightPlugin from "@plugins/mdx/highlight";
+import slugPlugin from "@plugins/mdx/slug";
 import remarkGemoji from "remark-gemoji";
 import remarkGfm from "remark-gfm";
-
-import "preact";
-import "preact-render-to-string";
 
 const mdxOptions = {
     remarkPlugins: [remarkGemoji, remarkGfm, alertPlugin, highlightPlugin, slugPlugin],
     jsxImportSource: "preact",
 };
-
-if (Bun.env.BLUEJAY_MODE === "serve") {
-    /* await */ open(`http://localhost:${Bun.env.BLUEJAY_PORT ?? 1337}${Bun.env.BLUEJAY_PATH}`);
-}
 
 Bun.plugin({
     name: "mdx",
@@ -25,17 +17,16 @@ Bun.plugin({
             const data = await Bun.file(path).text();
             const hash = Bun.hash(data);
             const filePath = `${Bun.cwd}.bluejay/mdx/${hash}.js`;
-            const cache = Bun.file(filePath);
             try {
                 return {
-                    contents: await cache.text(),
+                    contents: await Bun.file(filePath).text(),
                     loader: "js",
                 };
             } catch {
-                const compiled = await mdxCompile({ path, value: data }, mdxOptions);
-                /* await */ Bun.write(filePath, compiled.value);
+                const contents = (await compile({ path, value: data }, mdxOptions)).value;
+                /* await */ Bun.write(filePath, contents);
                 return {
-                    contents: compiled.value,
+                    contents,
                     loader: "js",
                 };
             }
