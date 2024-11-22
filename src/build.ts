@@ -2,8 +2,9 @@ import { cp, readdir } from "node:fs/promises";
 import type { Server } from "bun";
 import open from "open";
 
-import { BLUEJAY_WS } from "./dev.ts";
+import { BLUEJAY_WS } from "./dev.tsx";
 
+// @ts-ignore: wah
 globalThis.BROWSER_OPENED ||= false;
 
 export interface BluejayOptions<T> {

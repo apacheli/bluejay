@@ -1,6 +1,6 @@
 {
     "name": "bluejay",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "description": "Build static pages with MDX, JSX/TSX components, and Bun.",
     "main": "src/main.ts",
     "type": "module",
@@ -20,7 +20,7 @@
         "dle:svelte": "BLUEJAY_MODE=build bun test/svelte/main.ts",
         "serve": "BLUEJAY_MODE=serve bun --hot website/src/main.tsx",
         "serve:rm": "bun clean:bluejay && bun serve",
-        "serve:svelte": "BLUEJAY_MODE=serve BLUEJAY_PATH=/svelte bun --hot test/svelte/main.ts"
+        "serve:svelte": "BLUEJAY_MODE=serve BLUEJAY_PATH=/svelte bun --hot test/svelte/src/main.ts"
     },
     "dependencies": {
         "open": "^10.1.0"

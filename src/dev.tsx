@@ -15,3 +15,5 @@ ws.onopen = () => {
 export const BLUEJAY_WS_SCRIPT = `data:text/javascript;base64,${btoa(code)}`;
 
 export const BLUEJAY_DEV = Bun.env.BLUEJAY_MODE === "serve" ? `<script src="${BLUEJAY_WS_SCRIPT}"></script>` : "";
+
+export const BLUEJAY_JSX = () => (Bun.env.BLUEJAY_MODE === "serve" ? <script src={`${BLUEJAY_WS_SCRIPT}`} /> : <></>);

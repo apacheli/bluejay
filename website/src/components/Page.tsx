@@ -1,4 +1,4 @@
-import { BLUEJAY_WS_SCRIPT, type BluejayPage } from "bluejay";
+import { BLUEJAY_JSX, type BluejayPage } from "bluejay";
 import type { JSX } from "preact";
 
 import Footer from "@components/Footer";
@@ -39,7 +39,7 @@ export default ({ title, description, children }: PageProps) => (
             <a href="#" class="scroll-to-top" aria-label="scroll to top">
                 <AngleUp class="icon-hover" />
             </a>
-            {Bun.env.BLUEJAY_MODE === "serve" ? <script src={BLUEJAY_WS_SCRIPT} /> : undefined}
+            <BLUEJAY_JSX />
         </body>
     </html>
 );

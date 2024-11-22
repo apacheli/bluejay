@@ -4,6 +4,7 @@ title: hello this is a title
 
 <svelte:head>
   <title>{title}</title>
+  <link rel="icon" href={`${Bun.env.BLUEJAY_PATH}/icon.png`} />
 </svelte:head>
 
 <script>
