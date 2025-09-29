@@ -1,1 +1,1 @@
-preload = ["@preload/mdx", "@preload/svelte"]
+preload = ["./lib/preload.ts"]
