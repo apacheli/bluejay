@@ -1,8 +1,6 @@
 import { renderToStaticMarkup } from "preact-render-to-string";
-import type { BluejayConfiguration } from "./main.ts";
-import { createApplication } from "./main.ts";
-
-const DEFAULT_PORT = 1337;
+import type { BluejayConfiguration } from "./lib.ts";
+import { createApplication } from "./lib.ts";
 
 async function serve(config: BluejayConfiguration) {
 	if (!config.serve) {
@@ -11,7 +9,6 @@ async function serve(config: BluejayConfiguration) {
 
 	const app = await createApplication(config);
 
-	const map: Record<string, Response> = {};
 	const routes: Record<string, Response> = {};
 
 	for (let i = 0, j = app.assets.length; i < j; i++) {
@@ -33,35 +30,35 @@ async function serve(config: BluejayConfiguration) {
 		};
 		const rendered = renderToStaticMarkup(config.render(context));
 		const response = new Response(`<!DOCTYPE html>${rendered}`, {
-			status: page.module.metadata?.status ?? 200,
+			status: page.metadata?.status ?? 200,
 			headers: {
 				...config.serve.headers,
 				"Content-Type": "text/html;charset=utf-8",
 			},
 		});
-		routes[encodeURI(page.url)] = response;
-		if (page.module.metadata?.id !== undefined) {
-			map[page.module.metadata.id] = response;
-		}
+		routes[encodeURI(page.url)] = page._response = response;
 	}
 
 	for (const alias in config.serve.aliases) {
-		routes[alias] = map[config.serve.aliases[alias]];
+		routes[alias] = app.ids[config.serve.aliases[alias]]._response as Response;
 	}
 	for (const redirect in config.serve.redirects) {
 		routes[redirect] = Response.redirect(config.serve.redirects[redirect]);
 	}
 
-	const notFound = map[config.serve.notFound];
+	const notFound = app.ids[config.serve.notFound]?._response;
 	const server = Bun.serve({
-		port: config.serve.port ?? DEFAULT_PORT,
+		port: config.serve.port,
 		routes,
-		fetch: () => notFound.clone(),
+		fetch: () => notFound?.clone() ?? new Response("404 Not Found", { status: 404 }),
 	});
 
 	for (const route in routes) {
-		console.log(`    \x1b[30m${server.url.protocol}//${server.hostname}:${server.port}\x1b[34m${route}\x1b[39m`);
+		const r = routes[route];
+		const color = r.status >= 400 ? 31 : r.status >= 300 ? 32 : 36;
+		console.log(`    \x1b[90mhttp://localhost:${server.port}\x1b[${color}m${route}\x1b[39m`);
 	}
+	console.log(`\x1b[32m\n\u2192 Local: \x1b[1;36mhttp://localhost:${server.port}/\x1b[22;39\n`);
 }
 
 export default serve;

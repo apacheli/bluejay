@@ -1,0 +1,70 @@
+@font-face {
+	font-family: "Fira Code";
+	src: url("/assets/code.woff2") format("woff2");
+}
+
+.markdown h1,
+.markdown h2 {
+	border-bottom: 0.0625rem #00000040 solid;
+	text-decoration: none;
+}
+
+.markdown a {
+	color: #0080ff;
+	text-decoration: none;
+}
+
+.markdown a:hover {
+	text-decoration: underline;
+}
+
+.markdown h1 a,
+.markdown h2 a {
+	color: #000000;
+	text-decoration: none;
+}
+
+.markdown h1 a:hover,
+.markdown h2 a:hover {
+	text-decoration: underline;
+}
+
+.markdown code {
+	font-family: "Fira Code", monospace;
+}
+
+.markdown pre {
+	background-color: #00000010;
+	padding: 1rem;
+}
+
+.markdown code:not(pre code) {
+	background-color: #00000010;
+	padding: 0.5rem;
+}
+
+.code-line {
+	margin-left: 4rem;
+	position: relative;
+}
+
+.code-line::before {
+	color: #808080;
+	content: attr(data-line);
+	position: absolute;
+	right: calc(100% + 1rem);
+}
+
+.codeblock {
+	margin: 1rem 0;
+}
+
+.codeblock-header {
+	background-color: #00000080;
+	color: #ffffff;
+	text-align: center;
+}
+
+.codeblock-source {
+	margin: 0;
+}

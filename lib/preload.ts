@@ -1,27 +1,15 @@
 import type { CompileOptions } from "@mdx-js/mdx";
 import { compile } from "@mdx-js/mdx";
-import rehypeHighlight from "rehype-highlight";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGemoji from "remark-gemoji";
 import remarkGfm from "remark-gfm";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import PluginHighlight from "./plugins/highlight.js";
+import PluginSlug from "./plugins/slug.js";
 
 const compileOptions: CompileOptions = {
 	jsxImportSource: "preact",
-	rehypePlugins: [rehypeHighlight],
-	remarkPlugins: [
-		remarkGemoji,
-		remarkGfm,
-		[remarkFrontmatter, ["yaml", "toml"]],
-		[
-			remarkMdxFrontmatter,
-			{
-				name: "metadata",
-				conflict: "skip",
-				parsers: { yaml: Bun.YAML.parse, toml: Bun.TOML.parse },
-			},
-		],
-	],
+	remarkPlugins: [remarkGemoji, remarkGfm, [remarkFrontmatter, ["yaml", "toml"]], [remarkMdxFrontmatter, { name: "metadata", conflict: "skip", parsers: { yaml: Bun.YAML.parse, toml: Bun.TOML.parse } }], PluginHighlight, PluginSlug],
 };
 
 Bun.plugin({

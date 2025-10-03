@@ -1,5 +1,5 @@
 import build from "./build.ts";
-import type { BluejayConfiguration } from "./lib.ts";
+import type { BluejayConfiguration } from "./main.ts";
 import serve from "./serve.ts";
 
 async function cli(command: string, entry: string) {

@@ -1,4 +1,4 @@
-import type { BluejayConfiguration } from "../lib/lib.ts";
+import type { BluejayConfiguration } from "../lib/main.ts";
 import { BlogTemplate, PageTemplate } from "./components/templates.tsx";
 
 const templates = {
@@ -34,16 +34,14 @@ export default {
 		},
 	},
 	onLoad: (app) => {
-		app.data.blogs = app.pages
-			.filter((page) => page.module.metadata?.type === "blog")
-			.sort((a, b) => Date.parse(b.module.metadata!.date) - Date.parse(a.module.metadata!.date));
+		app.data.blogs = app.pages.filter((page) => page.metadata.type === "blog").sort((a, b) => Date.parse(b.metadata.date) - Date.parse(a.metadata.date));
 
-		for (let i = 0; i < app.data.blogs.length; i++) {
+		for (let i = 0, j = app.data.blogs.length; i < j; i++) {
 			app.data.blogs[i].data.index = i;
 		}
 	},
 	render: (ctx) => {
-		const type: keyof typeof templates = ctx.page.module.metadata?.type ?? "page";
+		const type: keyof typeof templates = ctx.page.metadata.type ?? "page";
 		const template = templates[type];
 		return template(ctx);
 	},

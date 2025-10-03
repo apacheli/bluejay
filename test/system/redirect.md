@@ -1,6 +1,7 @@
-export const metadata = {
-    title: "Redirect Test Page"
-};
+---
+title: Test Redirect Page
+status: 301
+---
 
 # Redirect Test Page
 

@@ -1,7 +1,8 @@
-import type { BluejayContext, BluejayPage } from "../../lib/main.ts";
+import type { BluejayContext, BluejayPage } from "../../lib/lib.ts";
 
 export const metadata = {
 	title: "Blog",
+	description: "The blog page.",
 };
 
 const dtf = new Intl.DateTimeFormat("en-US", {
@@ -11,13 +12,13 @@ const dtf = new Intl.DateTimeFormat("en-US", {
 });
 
 const Article = (page: BluejayPage) => {
-	const { title, description, date, tag } = page.module.metadata ?? {};
+	const { title, description, image, date, tag } = page.metadata;
 	return (
 		<article>
 			<a href={page.url} class="blog-anchor">
 				<div class="blog-entry">
 					<div class="blog-image-container">
-						<img src="/assets/placeholder.png" class="blog-image" alt={title} />
+						<img src={image ?? "/assets/placeholder.png"} class="blog-image" alt={title} />
 						{page.data.index === 0 ? <span class="blog-new">NEW!</span> : undefined}
 					</div>
 					<div class="blog-metadata">

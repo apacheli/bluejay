@@ -9,20 +9,20 @@
 		"check": "bunx @biomejs/biome check",
 		"format": "bunx @biomejs/biome format",
 		"lint": "bunx @biomejs/biome lint",
-		"build": "bun lib/cli.ts build test/main.tsx",
-		"serve": "bun lib/cli.ts serve test/main.tsx"
+		"build": "bun lib/cli.ts build test/main.ts",
+		"serve": "bun lib/cli.ts serve test/main.ts"
 	},
 	"dependencies": {
 		"@mdx-js/mdx": "^3.1.1",
+		"highlight.js": "^11.11.1",
 		"preact-render-to-string": "^6.6.1",
-		"rehype-highlight": "^7.0.2",
 		"remark-frontmatter": "^5.0.0",
 		"remark-gemoji": "^8.0.0",
 		"remark-gfm": "^4.0.1",
 		"remark-mdx-frontmatter": "^5.2.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.2.4",
+		"@biomejs/biome": "^2.2.5",
 		"@types/bun": "^1.2.22"
 	}
 }
