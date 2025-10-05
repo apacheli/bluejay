@@ -163,12 +163,6 @@ svg {
 	width: min(40% + 32rem, 100%);
 }
 
-.blog-grid {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-}
-
 .blog-anchor {
 	text-decoration: none;
 }
@@ -176,6 +170,7 @@ svg {
 .blog-entry {
 	color: var(--color-font);
 	display: flex;
+	margin: 1rem 0;
 }
 
 .blog-image-container {

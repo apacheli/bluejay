@@ -33,38 +33,43 @@
 	font-family: "Fira Code", monospace;
 }
 
-.markdown pre {
+.markdown > pre {
 	background-color: #00000010;
 	padding: 1rem;
 }
 
 .markdown code:not(pre code) {
 	background-color: #00000010;
-	padding: 0.5rem;
-}
-
-.code-line {
-	margin-left: 4rem;
-	position: relative;
-}
-
-.code-line::before {
-	color: #808080;
-	content: attr(data-line);
-	position: absolute;
-	right: calc(100% + 1rem);
+	padding: 0.25rem;
 }
 
 .codeblock {
+	font-family: "Fira Code", monospace;
 	margin: 1rem 0;
 }
 
-.codeblock-header {
+.codeblock-head {
 	background-color: #00000080;
 	color: #ffffff;
 	text-align: center;
 }
 
-.codeblock-source {
+.codeblock-body {
+	display: flex;
+	background-color: #00000010;
+	overflow: auto;
+}
+
+.codeblock-lines {
+	color: #808080;
+	min-width: 4rem;
+	padding: 1rem;
+	text-align: right;
+	user-select: none;
+}
+
+.codeblock-src {
+	flex-grow: 1;
 	margin: 0;
+	padding: 1rem 0;
 }

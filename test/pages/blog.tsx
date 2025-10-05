@@ -37,7 +37,7 @@ export default (context: BluejayContext) => {
 	return (
 		<>
 			<h1>Blog</h1>
-			<div class="blog-grid">{context.app.data.blogs.map(Article)}</div>
+			<div>{context.app.data.blogs.map(Article)}</div>
 		</>
 	);
 };
