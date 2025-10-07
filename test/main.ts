@@ -1,10 +1,13 @@
 import type { BluejayConfiguration } from "../lib/main.ts";
-import { BlogTemplate, PageTemplate } from "./components/templates.tsx";
+import { BlogTemplate, MarkdownTemplate, PageTemplate } from "./components/templates.tsx";
 
 const templates = {
 	blog: BlogTemplate,
+	markdown: MarkdownTemplate,
 	page: PageTemplate,
 };
+
+const BASE_URL = "https://apache.li";
 
 export default {
 	cwd: import.meta.dir,
@@ -30,19 +33,25 @@ export default {
 			"/github": "/redirect",
 		},
 		headers: {
-			"Cache-Control": "",
+			"Cache-Control": "no-cache",
 		},
 	},
 	onLoad: (app) => {
-		app.data.blogs = app.pages.filter((page) => page.metadata.type === "blog").sort((a, b) => Date.parse(b.metadata.date) - Date.parse(a.metadata.date));
+		app.data.blogs = app.pages.filter((page) => page.metadata.type === "blog").sort((a, b) => Date.parse(b.metadata.date) - Date.parse(a.metadata.date) || a.url.localeCompare(b.url));
 
 		for (let i = 0, j = app.data.blogs.length; i < j; i++) {
 			app.data.blogs[i].data.index = i;
 		}
+
+		return {
+			"/sitemap.txt": app.pages
+				.sort((a, b) => a.url.localeCompare(b.url))
+				.map((page) => BASE_URL + page.url)
+				.join("\n"),
+		};
 	},
 	render: (ctx) => {
 		const type: keyof typeof templates = ctx.page.metadata.type ?? "page";
-		const template = templates[type];
-		return template(ctx);
+		return templates[type](ctx);
 	},
 } satisfies BluejayConfiguration;

@@ -1,8 +1,3 @@
-@font-face {
-	font-family: "Cantarell";
-	src: url("/assets/font.woff2") format("woff2");
-}
-
 html {
 	box-sizing: border-box;
 	scroll-behavior: smooth;
@@ -156,11 +151,17 @@ svg {
 	display: none;
 }
 
+.main-footer {
+	background-color: var(--color-header);
+	color: var(--color-header-font);
+	padding: 1rem;
+}
+
 .main {
+	min-height: 100vh;
 	margin: auto;
-	margin-top: 8rem;
-	padding: 0 1rem;
-	width: min(40% + 32rem, 100%);
+	padding: 8rem 1rem 4rem 1rem;
+	width: min(32% + 32rem, 100%);
 }
 
 .blog-anchor {
@@ -174,16 +175,17 @@ svg {
 }
 
 .blog-image-container {
-	flex: 1;
+	aspect-ratio: 16 / 9;
 	position: relative;
+	flex: 2;
+	min-height: 10rem;
 }
 
 .blog-image {
 	aspect-ratio: 16 / 9;
 	display: block;
-	height: 100%;
-	object-fit: cover;
 	width: 100%;
+	object-fit: contain;
 }
 
 .blog-new {
@@ -196,7 +198,7 @@ svg {
 }
 
 .blog-metadata {
-	flex: 3;
+	flex: 4;
 	padding: 1rem;
 	position: relative;
 }
@@ -242,7 +244,7 @@ h2 {
 	margin: 1rem 0;
 }
 
-@media (max-width: 90rem) {
+@media (max-width: 80rem) {
 	.main-header {
 		justify-content: space-between;
 	}
@@ -293,7 +295,7 @@ h2 {
 	}
 }
 
-@media (max-width: 45rem) {
+@media (max-width: 40rem) {
 	.main-header-nav {
 		width: 100%;
 	}

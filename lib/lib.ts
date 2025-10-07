@@ -76,7 +76,7 @@ async function createApplication(config: BluejayConfiguration) {
 		config,
 	};
 	await readFromConfiguration(app);
-	await config.onLoad?.(app);
+	app.gen = await config.onLoad?.(app);
 	return app;
 }
 
@@ -84,11 +84,15 @@ interface BluejayApplication {
 	ids: Record<string, BluejayPage>;
 	assets: BluejaySource[];
 	pages: BluejayPage[];
-	config: BluejayConfiguration;
 	/**
 	 * Empty object for attaching arbitrary data to.
 	 */
 	data: Record<string, any>;
+	/**
+	 * Generated assets.
+	 */
+	gen?: Record<string, string | Uint8Array>;
+	config: BluejayConfiguration;
 }
 
 interface BluejayConfiguration {
@@ -98,9 +102,11 @@ interface BluejayConfiguration {
 	pages: Record<string, string>;
 	components?: Record<string, (...args: unknown[]) => JSX.Element>;
 	serve?: BluejayConfigurationServe;
-	onLoad?: (app: BluejayApplication) => unknown;
+	onLoad?: (app: BluejayApplication) => Awaitable<Record<string, string | Uint8Array>>;
 	render: (context: BluejayContext) => JSX.Element;
 }
+
+type Awaitable<T> = T | Promise<T>;
 
 interface BluejayConfigurationServe {
 	notFound: string;

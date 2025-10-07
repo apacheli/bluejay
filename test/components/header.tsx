@@ -15,7 +15,7 @@ const nav = [
 export default () => (
 	<header class="main-header">
 		<a href="/" class="main-header-title">
-			<img src="/assets/icon.png" height="48" width="48" alt="apacheli Icon" />
+			<img src="/assets/images/icon.png" height="48" width="48" alt="apacheli Icon" />
 			<span>APACHELI</span>
 		</a>
 		<input type="checkbox" id="nav-checkbox" />

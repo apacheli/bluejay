@@ -7,10 +7,5 @@ export const metadata = {
 };
 
 export default () => {
-	return (
-		<>
-			<p>Regular JS/TS/JSX/TSX works thanks to Bun!</p>
-			<img src="/assets/bun.png" alt="bun" />
-		</>
-	);
+	return <p>Regular JS/TS/JSX/TSX works thanks to Bun!</p>;
 };

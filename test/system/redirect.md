@@ -1,6 +1,7 @@
 ---
-title: Test Redirect Page
+title: "Test Redirect Page"
 status: 301
+type: "markdown"
 ---
 
 # Redirect Test Page

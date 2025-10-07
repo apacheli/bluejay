@@ -15,6 +15,11 @@ async function build(config: BluejayConfiguration) {
 		console.log(`    \x1b[90m${dist}\x1b[35m${asset.url}${asset.ext}\x1b[39m`);
 	}
 
+	for (const path in app.gen) {
+		promises.push(Bun.write(dist + path, app.gen[path]));
+		console.log(`    \x1b[90m${dist}\x1b[33m${path}\x1b[39m`);
+	}
+
 	for (let i = 0, j = app.pages.length; i < j; i++) {
 		const page = app.pages[i];
 		const context = {

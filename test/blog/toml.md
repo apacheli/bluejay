@@ -1,7 +1,7 @@
 +++
 title = "TOML Frontmatter Test"
 description = "Bun.TOML.parse"
-image = "/assets/blog/realrock.png"
+image = "/assets/images/realrock.png"
 type = "blog"
 date = "2013-02-23"
 tag = "development"

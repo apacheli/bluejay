@@ -21,6 +21,14 @@ async function serve(config: BluejayConfiguration) {
 		routes[encodeURI(asset.url) + asset.ext] = new Response(file, { headers });
 	}
 
+	for (const path in app.gen) {
+		const headers = {
+			...config.serve?.headers,
+			"Content-Type": Bun.file(path).type,
+		};
+		routes[path] = new Response(app.gen[path], { headers });
+	}
+
 	for (let i = 0, j = app.pages.length; i < j; i++) {
 		const page = app.pages[i];
 		const context = {
