@@ -28,6 +28,17 @@ body {
 	margin: 0;
 }
 
+h1,
+h2 {
+	margin: 1rem 0;
+}
+
+svg {
+	transition: fill var(--duration);
+	height: 2rem;
+	width: 2rem;
+}
+
 .main-header {
 	align-items: center;
 	background-color: var(--color-header);
@@ -54,7 +65,7 @@ body {
 	animation: 4s linear infinite rotation;
 }
 
-.main-header-nav ul {
+.common-list {
 	display: flex;
 	list-style: none;
 	margin: 0;
@@ -77,16 +88,13 @@ body {
 		color var(--duration);
 }
 
-svg {
-	fill: #ffffff;
-	height: 2rem;
-	transition: fill var(--duration);
-	width: 2rem;
-}
-
 .nav-button:hover {
 	background-color: #ffffff20;
 	color: var(--hover-color);
+}
+
+.nav-button svg {
+	fill: var(--color-header-font);
 }
 
 .nav-button:hover svg {
@@ -148,7 +156,9 @@ svg {
 }
 
 .nav-check {
+	cursor: pointer;
 	display: none;
+	fill: var(--color-header-font);
 }
 
 .main-footer {
@@ -159,8 +169,8 @@ svg {
 
 .main {
 	min-height: 100vh;
-	margin: auto;
-	padding: 8rem 1rem 4rem 1rem;
+	margin: 8rem auto 4rem;
+	padding: 0 1rem;
 	width: min(32% + 32rem, 100%);
 }
 
@@ -178,14 +188,13 @@ svg {
 	aspect-ratio: 16 / 9;
 	position: relative;
 	flex: 2;
-	min-height: 10rem;
 }
 
 .blog-image {
 	aspect-ratio: 16 / 9;
 	display: block;
+	object-fit: cover;
 	width: 100%;
-	object-fit: contain;
 }
 
 .blog-new {
@@ -229,19 +238,45 @@ svg {
 	margin: 0;
 }
 
-@keyframes rotation {
-	from {
-		transform: rotate(0deg);
-	}
-
-	to {
-		transform: rotate(360deg);
-	}
+.share-url {
+	background-color: #00000010;
+	padding: 0.25rem;
+	user-select: all;
 }
 
-h1,
-h2 {
+.icon-links {
+	align-items: center;
+	display: flex;
+	gap: 1rem;
 	margin: 1rem 0;
+}
+
+.icon-link {
+	color: var(--color-font);
+	display: flex;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.icon-link svg {
+	display: block;
+}
+
+.icon-link.share-url {
+	color: var(--color-font-secondary);
+	user-select: all;
+}
+
+.icon-link.facebook {
+	fill: #3c5898;
+}
+
+.icon-link.twitter {
+	fill: #1da1f2;
+}
+
+.icon-link.linked-in {
+	fill: #0077b5;
 }
 
 @media (max-width: 80rem) {
@@ -274,7 +309,6 @@ h2 {
 	}
 
 	.nav-check {
-		cursor: pointer;
 		display: flex;
 	}
 
@@ -308,5 +342,15 @@ h2 {
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
+	}
+}
+
+@keyframes rotation {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
 	}
 }

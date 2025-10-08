@@ -2,15 +2,6 @@ import type { BluejayPage } from "../../lib/lib.ts";
 import Footer from "./footer.tsx";
 import Header from "./header.tsx";
 
-interface CommonHeadProps {
-	children?: any;
-	title?: string;
-}
-
-interface CommonBodyProps {
-	children?: any;
-}
-
 const dtf = new Intl.DateTimeFormat("en-US", {
 	year: "numeric",
 	month: "long",
@@ -39,19 +30,27 @@ const Article = (page: BluejayPage) => {
 	);
 };
 
-const CommonHead = ({ children, title }: CommonHeadProps) => (
+const CommonHead = ({ ctx, children }: any) => (
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" href="/favicon.png" />
 		<link rel="stylesheet" href="/assets/css/font.css" />
 		<link rel="stylesheet" href="/assets/css/index.css" />
-		<title>{title ?? "No Title"} - apacheli</title>
+		<title>{ctx.page.metadata.title ?? "No Title"} - apacheli</title>
+
+		<meta property="og:description" content={ctx.page.metadata.description} />
+		<meta property="og:image" content={`${Bun.env.BLUEJAY_URL}${ctx.page.metadata.image ?? "/favicon.png"}`} />
+		<meta property="og:title" content={ctx.page.metadata.title} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Bun.env.BLUEJAY_URL} />
+		<meta name="twitter:card" content="summary_large_image" />
+
 		{children}
 	</head>
 );
 
-const CommonBody = ({ children }: CommonBodyProps) => (
+const CommonBody = ({ ctx, children }: any) => (
 	<body>
 		<Header />
 		<div class="main">{children}</div>

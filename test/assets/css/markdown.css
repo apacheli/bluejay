@@ -7,28 +7,19 @@
 	font-size: 3rem;
 }
 
-.post-header img {
+.post-image {
 	display: block;
 	margin: auto;
-	user-select: none;
 	margin-top: 4rem;
 	max-width: 100%;
+	user-select: none;
 }
 
 .post-footer {
 	margin-top: 4rem;
 }
 
-.post-footer-nav ul {
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	background-color: var(--color-header);
-}
-
-.markdown {
-}
+/* .markdown {} */
 
 .markdown h1,
 .markdown h2 {
@@ -88,8 +79,8 @@
 }
 
 .codeblock-body {
-	display: flex;
 	background-color: #00000010;
+	display: flex;
 	overflow: auto;
 }
 

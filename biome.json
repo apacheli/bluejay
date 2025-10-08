@@ -6,7 +6,7 @@
 		"useIgnoreFile": false
 	},
 	"files": {
-		"includes": ["lib/**", "test/**"],
+		"includes": ["**", "!.bluejay", "!test/dist"],
 		"ignoreUnknown": false
 	},
 	"formatter": {

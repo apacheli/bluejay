@@ -1,13 +1,6 @@
 import type { BluejayConfiguration } from "../lib/main.ts";
-import { BlogTemplate, MarkdownTemplate, PageTemplate } from "./components/templates.tsx";
-
-const templates = {
-	blog: BlogTemplate,
-	markdown: MarkdownTemplate,
-	page: PageTemplate,
-};
-
-const BASE_URL = "https://apache.li";
+import templates from "./components/templates.tsx";
+import Feed from "./misc/feed.jsx";
 
 export default {
 	cwd: import.meta.dir,
@@ -37,7 +30,7 @@ export default {
 		},
 	},
 	onLoad: (app) => {
-		app.data.blogs = app.pages.filter((page) => page.metadata.type === "blog").sort((a, b) => Date.parse(b.metadata.date) - Date.parse(a.metadata.date) || a.url.localeCompare(b.url));
+		app.data.blogs = app.pages.filter((p) => p.metadata.type === "blog").sort((a, b) => Date.parse(b.metadata.date) - Date.parse(a.metadata.date) || a.url.localeCompare(b.url));
 
 		for (let i = 0, j = app.data.blogs.length; i < j; i++) {
 			app.data.blogs[i].data.index = i;
@@ -46,8 +39,9 @@ export default {
 		return {
 			"/sitemap.txt": app.pages
 				.sort((a, b) => a.url.localeCompare(b.url))
-				.map((page) => BASE_URL + page.url)
+				.map((p) => Bun.env.BLUEJAY_URL + p.url)
 				.join("\n"),
+			"/feed.xml": Feed(app),
 		};
 	},
 	render: (ctx) => {

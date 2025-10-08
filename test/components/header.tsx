@@ -26,7 +26,7 @@ export default () => (
 			<MenuCloseIcon />
 		</label>
 		<nav class="main-header-nav">
-			<ul>
+			<ul class="common-list">
 				{nav.map((li) => (
 					<li>
 						<a href={li.href} class={li.class ?? "nav-button"}>
