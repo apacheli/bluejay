@@ -66,4 +66,16 @@ const RssIcon = () => (
 	</svg>
 );
 
-export { DiscordIcon, GitHubIcon, HouseIcon, MenuCloseIcon, MenuOpenIcon, TwitchIcon, TwitterIcon, YouTubeIcon, FacebookIcon, LinkedInIcon, RssIcon };
+const EmailIcon = () => (
+	<svg viewBox="0 0 640 640">
+		<path d="M320 128c-106 0-192 86-192 192s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C178.6 576 64 461.4 64 320S178.6 64 320 64s256 114.6 256 256v32c0 53-43 96-96 96-29.3 0-55.6-13.2-73.2-33.9-22.8 21-53.3 33.9-86.8 33.9-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1 5.7-5 13.1-8.1 21.3-8.1 17.7 0 32 14.3 32 32v112c0 17.7 14.3 32 32 32s32-14.3 32-32v-32c0-106-86-192-192-192zm64 192c0-35.3-28.7-64-64-64s-64 28.7-64 64 28.7 64 64 64 64-28.7 64-64z" />
+	</svg>
+);
+
+const ExclamationIcon = () => (
+	<svg viewBox="0 0 640 640">
+		<path d="M320 576C178.6 576 64 461.4 64 320S178.6 64 320 64s256 114.6 256 256-114.6 256-256 256zm0-192c-17.7 0-32 14.3-32 32s14.3 32 32 32 32-14.3 32-32-14.3-32-32-32zm0-192c-18.2 0-32.7 15.5-31.4 33.7l7.4 104c.9 12.6 11.4 22.3 23.9 22.3 12.6 0 23-9.7 23.9-22.3l7.4-104c1.3-18.2-13.1-33.7-31.4-33.7z" />
+	</svg>
+);
+
+export { DiscordIcon, GitHubIcon, HouseIcon, MenuCloseIcon, MenuOpenIcon, TwitchIcon, TwitterIcon, YouTubeIcon, FacebookIcon, LinkedInIcon, RssIcon, EmailIcon, ExclamationIcon };

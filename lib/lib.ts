@@ -91,7 +91,7 @@ interface BluejayApplication {
 	/**
 	 * Generated assets.
 	 */
-	gen?: Record<string, string | Uint8Array>;
+	gen?: Record<string, string>;
 	config: BluejayConfiguration;
 }
 
@@ -102,7 +102,7 @@ interface BluejayConfiguration {
 	pages: Record<string, string>;
 	components?: Record<string, (...args: unknown[]) => JSX.Element>;
 	serve?: BluejayConfigurationServe;
-	onLoad?: (app: BluejayApplication) => Awaitable<Record<string, string | Uint8Array>>;
+	onLoad?: (app: BluejayApplication) => Awaitable<Record<string, string>>;
 	render: (context: BluejayContext) => JSX.Element;
 }
 

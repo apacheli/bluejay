@@ -66,7 +66,7 @@ async function serve(config: BluejayConfiguration) {
 		const color = r.status >= 400 ? 31 : r.status >= 300 ? 32 : 36;
 		console.log(`    \x1b[90mhttp://localhost:${server.port}\x1b[${color}m${route}\x1b[39m`);
 	}
-	console.log(`\x1b[32m\n\u2192 Local: \x1b[1;36mhttp://localhost:${server.port}/\x1b[22;39\n`);
+	console.log(`\n\x1b[32m\u2192 Local: \x1b[1;36mhttp://localhost:${server.port}/\x1b[22;39\n`);
 }
 
 export default serve;

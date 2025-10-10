@@ -14,4 +14,4 @@ For business inquiries, contact me at contact@apache.li. I don't respond on othe
 
 ## Security
 
-Contact me at security@apache.li if you find vulnerabilities.
+For vulnerabilities, contact me at security@apache.li.

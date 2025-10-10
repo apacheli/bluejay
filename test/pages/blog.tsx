@@ -1,6 +1,6 @@
 import type { BluejayContext } from "../../lib/lib.ts";
 import { Article } from "../components/common.tsx";
-import { RssIcon } from "../components/icons.tsx";
+import { ExclamationIcon, RssIcon } from "../components/icons.tsx";
 
 export const metadata = {
 	id: "blog",
@@ -14,9 +14,13 @@ export default (context: BluejayContext) => {
 			<h1>Blog</h1>
 			<main>{context.app.data.blogs.map(Article)}</main>
 			<div class="icon-links">
-				<a href="/feed.xml" class="icon-link rss" title="RSS Feed">
+				<a href="/feed.xml" class="icon-link" title="RSS Feed">
 					<RssIcon />
 					<span>RSS Feed</span>
+				</a>
+				<a href={context.app.data.blogs[0].url} class="icon-link" title="Latest">
+					<ExclamationIcon />
+					<span>Latest</span>
 				</a>
 			</div>
 		</>

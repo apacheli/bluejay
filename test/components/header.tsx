@@ -26,12 +26,12 @@ export default () => (
 			<MenuCloseIcon />
 		</label>
 		<nav class="main-header-nav">
-			<ul class="common-list">
-				{nav.map((li) => (
+			<ul class="flex-list">
+				{nav.map((item) => (
 					<li>
-						<a href={li.href} class={li.class ?? "nav-button"}>
-							{li.icon && <li.icon />}
-							{li.icon ? <span class="hover-tooltip">{li.name}</span> : li.name}
+						<a href={item.href} class={item.class ?? "nav-button"}>
+							{item.icon && <item.icon />}
+							{item.icon ? <span class="hover-tooltip">{item.name}</span> : item.name}
 						</a>
 					</li>
 				))}

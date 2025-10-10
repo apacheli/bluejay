@@ -1,5 +1,5 @@
 +++
-title = "TOML Frontmatter Test"
+title = "TOML Frontmatter Test ur mom gay wtf"
 description = "Bun.TOML.parse"
 image = "/assets/images/realrock.png"
 type = "blog"

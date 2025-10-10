@@ -6,6 +6,23 @@ date: "2012-12-21"
 tag: "development"
 ---
 
+> "Hello, World!" - John Doe
+
+> [!NOTE]
+> insert text here
+
+> [!TIP]
+> insert text here
+
+> [!IMPORTANT]
+> insert text here
+
+> [!WARNING]
+> insert text here
+
+> [!CAUTION]
+> insert text here
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. _**Suspendisse at elit felis. Donec sagittis sem mauris, ac ultrices sapien mollis sed.**_ Nam eget commodo massa. Morbi turpis augue, suscipit non convallis ut, posuere quis ante. Nulla lectus nibh, ornare nec diam ac, interdum varius metus. Vestibulum ante libero, vehicula et porttitor quis, bibendum egestas dui. Etiam posuere tortor diam, nec aliquet lacus sollicitudin eget. _Duis ornare nisi placerat, cursus quam vitae, faucibus ex._ Vestibulum sodales nisi vitae est scelerisque, quis efficitur justo dictum. Nulla facilisi. Nullam maximus nisl rhoncus mi imperdiet volutpat vel in leo. Nulla ut gravida massa. Curabitur tortor odio, pulvinar nec luctus non, ultricies et mi. **Pellentesque ac mattis ipsum. Donec suscipit viverra libero euismod mollis.** Fusce tempus accumsan quam, in congue risus dignissim porta.
 
 ## Pellentesque at dignissim dui, nec vehicula risus.
