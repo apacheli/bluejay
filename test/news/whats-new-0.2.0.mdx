@@ -1,0 +1,35 @@
+---
+title: "Bluejay 0.2.0"
+description: "We rewrote a bunch of stuff to make Bluejay more usable."
+image: "/bluejay/assets/images/bluejay-old-banner.png"
+type: "blog"
+date: "2024-08-19"
+tag: "Development"
+---
+
+# What's New in Bluejay 0.2.0?
+
+## Install
+
+```
+$ bun add https://github.com/apacheli/bluejay
+```
+
+## QoL Changes
+
+- Bluejay now uses preloading to make importing smoother for `.md`, `.mdx`, and `.svg` modules.
+- Assets and pages can now be defined manually.
+- Assets now load to `/` instead of `/assets` relative to `BluejayOptions.path`.
+- Bluejay now uses TypeScript which should overall improve the development experience.
+- We also added a blog page.
+
+## Optimizations
+
+- Pages load ~**38**% faster on uncached `.md`/`.mdx` files and ~**9.1**x faster if cached. Cached files are stored in `.bluejay` relative to `Bun.cwd`.
+- Less logging is done which results in faster code execution.
+
+## Contributors
+
+We love contributions! [Check out our GitHub for more details.](https://github.com/apacheli/bluejay)
+
+- [apacheli](https://github.com/apacheli)

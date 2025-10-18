@@ -11,7 +11,8 @@
 	},
 	"formatter": {
 		"enabled": true,
-		"indentStyle": "tab"
+		"indentStyle": "tab",
+		"lineWidth": 320
 	},
 	"linter": {
 		"enabled": true,
@@ -22,15 +23,28 @@
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double",
-			"lineWidth": 320
+			"quoteProperties": "preserve"
 		}
 	},
 	"assist": {
-		"enabled": true,
 		"actions": {
 			"source": {
 				"organizeImports": "on"
 			}
+		},
+		"enabled": true
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.css"],
+			"assist": {
+				"actions": {
+					"source": {
+						"useSortedProperties": "on"
+					}
+				},
+				"enabled": true
+			}
 		}
-	}
+	]
 }

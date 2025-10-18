@@ -2,12 +2,13 @@ import { renderToStaticMarkup } from "preact-render-to-string";
 import type { BluejayConfiguration } from "./lib.ts";
 import { createApplication } from "./lib.ts";
 
-async function serve(config: BluejayConfiguration) {
+async function getServeOptions(config: BluejayConfiguration) {
 	if (!config.serve) {
 		throw new Error("Missing serve options in your configuration.");
 	}
 
 	const app = await createApplication(config);
+	const prefix = config.serve.prefix ?? "";
 
 	const routes: Record<string, Response> = {};
 
@@ -18,7 +19,7 @@ async function serve(config: BluejayConfiguration) {
 			...config.serve?.headers,
 			"Content-Type": file.type,
 		};
-		routes[encodeURI(asset.url) + asset.ext] = new Response(file, { headers });
+		routes[prefix + encodeURI(asset.url) + asset.ext] = new Response(file, { headers });
 	}
 
 	for (const path in app.gen) {
@@ -26,7 +27,7 @@ async function serve(config: BluejayConfiguration) {
 			...config.serve?.headers,
 			"Content-Type": Bun.file(path).type,
 		};
-		routes[path] = new Response(app.gen[path], { headers });
+		routes[prefix + path] = new Response(app.gen[path], { headers });
 	}
 
 	for (let i = 0, j = app.pages.length; i < j; i++) {
@@ -44,29 +45,36 @@ async function serve(config: BluejayConfiguration) {
 				"Content-Type": "text/html;charset=utf-8",
 			},
 		});
-		routes[encodeURI(page.url)] = page._response = response;
+		routes[prefix + encodeURI(page.url)] = page._response = response;
 	}
 
 	for (const alias in config.serve.aliases) {
-		routes[alias] = app.ids[config.serve.aliases[alias]]._response as Response;
+		routes[prefix + alias] = app.ids[config.serve.aliases[alias]]._response as Response;
 	}
 	for (const redirect in config.serve.redirects) {
-		routes[redirect] = Response.redirect(config.serve.redirects[redirect]);
+		routes[prefix + redirect] = Response.redirect(config.serve.redirects[redirect]);
 	}
 
 	const notFound = app.ids[config.serve.notFound]?._response;
-	const server = Bun.serve({
+	return {
 		port: config.serve.port,
 		routes,
 		fetch: () => notFound?.clone() ?? new Response("404 Not Found", { status: 404 }),
-	});
+	};
+}
 
-	for (const route in routes) {
-		const r = routes[route];
+async function serve(config: BluejayConfiguration) {
+	const options = await getServeOptions(config);
+	const server = Bun.serve(options);
+
+	for (const route in options.routes) {
+		const r = options.routes[route];
 		const color = r.status >= 400 ? 31 : r.status >= 300 ? 32 : 36;
 		console.log(`    \x1b[90mhttp://localhost:${server.port}\x1b[${color}m${route}\x1b[39m`);
 	}
-	console.log(`\n\x1b[32m\u2192 Local: \x1b[1;36mhttp://localhost:${server.port}/\x1b[22;39\n`);
+	console.log(`\n\x1b[32m\u2192 Local: \x1b[1;36mhttp://localhost:${server.port}${config.serve?.prefix ?? ""}\x1b[22;39\n`);
+
+	return server;
 }
 
 export default serve;

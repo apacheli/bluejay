@@ -13,20 +13,26 @@ const compileOptions: CompileOptions = {
 	remarkPlugins: [remarkGemoji, remarkGfm, [remarkFrontmatter, ["yaml", "toml"]], [remarkMdxFrontmatter, { name: "metadata", conflict: "skip", parsers: { yaml: Bun.YAML.parse, toml: Bun.TOML.parse } }], PluginAlert, PluginHighlight, PluginSlug],
 };
 
+import cache from "./cache.js";
+
 Bun.plugin({
 	name: "mdx",
 	setup: (build) => {
 		build.onLoad({ filter: /\.mdx?$/i }, async ({ path }) => {
 			const value = await Bun.file(path).text();
-			const file = Bun.file(`.bluejay/${Bun.hash(value)}.js`);
-			try {
+			const hash = `${Bun.hash(value)}`;
+			const key = `${Bun.hash(path)}`;
+			const cached = Bun.file(`.bluejay/${key}.js`);
+			if (hash === cache.data[key]) {
 				return {
 					loader: "js",
-					contents: await file.text(),
+					contents: await cached.text(),
 				};
-			} catch {}
+			}
 			const c = await compile({ path, value }, compileOptions);
-			Bun.write(file, c.value);
+			/* await */ Bun.write(cached, c.value);
+			cache.data[key] = hash;
+			cache.updatable = true;
 			return {
 				loader: "js",
 				contents: c.value,

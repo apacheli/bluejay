@@ -6,25 +6,22 @@ export default {
 	cwd: import.meta.dir,
 	dist: "dist",
 	assets: {
-		assets: "/assets",
-		static: "",
+		"assets": "/assets",
+		"static": "",
 	},
 	pages: {
-		blog: "/blog",
-		pages: "",
-		system: "",
+		"news": "/news",
+		"pages": "",
 	},
 	components: {},
 	serve: {
-		port: 4096,
+		prefix: "/bluejay",
+		port: 8192,
 		notFound: "404",
 		aliases: {
-			"/": "index",
-			"/blog/*": "404-blog",
+			"": "index",
 		},
-		redirects: {
-			"/github": "/redirect",
-		},
+		redirects: {},
 		headers: {
 			"Cache-Control": "no-cache",
 		},

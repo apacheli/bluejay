@@ -6,21 +6,24 @@ const dtf = new Intl.DateTimeFormat("en-US", {
 	year: "numeric",
 	month: "long",
 	day: "numeric",
+	timeZone: "UTC",
 });
 
 const Article = (page: BluejayPage) => {
 	const { title, description, image, date, tag } = page.metadata;
 	return (
 		<article>
-			<a href={page.url} class="blog-anchor">
+			<a href={`/bluejay${page.url}`} class="blog-anchor" title={title}>
 				<div class="blog-entry">
 					<div class="blog-image-container">
-						<img src={image ?? "/assets/images/placeholder.png"} class="blog-image" alt={title} />
+						<img src={image ?? "/bluejay/assets/images/placeholder.png"} class="blog-image" alt={title} />
 						{page.data.index === 0 ? <span class="blog-new">NEW!</span> : undefined}
 					</div>
 					<div class="blog-metadata">
 						<span class="blog-tag">{tag}</span>
-						<span class="blog-date">{dtf.format(new Date(date))}</span>
+						<time class="blog-date" datetime={date}>
+							{dtf.format(new Date(date))}
+						</time>
 						<h2 class="blog-title">{title}</h2>
 						<p class="blog-description">{description}</p>
 					</div>
@@ -35,8 +38,8 @@ const CommonHead = ({ ctx, children }: any) => (
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" href="/favicon.png" />
-		<link rel="stylesheet" href="/assets/css/font.css" />
-		<link rel="stylesheet" href="/assets/css/index.css" />
+		<link rel="stylesheet" href="/bluejay/assets/css/font.css" />
+		<link rel="stylesheet" href="/bluejay/assets/css/index.css" />
 		<title>{ctx.page.metadata.title ?? "No Title"} - apacheli</title>
 
 		<meta property="og:description" content={ctx.page.metadata.description} />
@@ -50,7 +53,7 @@ const CommonHead = ({ ctx, children }: any) => (
 	</head>
 );
 
-const CommonBody = ({ ctx, children }: any) => (
+const CommonBody = ({ children }: any) => (
 	<body>
 		<Header />
 		<div class="main">{children}</div>

@@ -1,6 +1,7 @@
 import type { Dirent } from "node:fs";
 import { readdir } from "node:fs/promises";
 import type { JSX } from "preact/jsx-runtime";
+import cache from "./cache.ts";
 
 const readdirOptions = {
 	recursive: true,
@@ -77,6 +78,7 @@ async function createApplication(config: BluejayConfiguration) {
 	};
 	await readFromConfiguration(app);
 	app.gen = await config.onLoad?.(app);
+	/* await */ cache.update();
 	return app;
 }
 
@@ -110,6 +112,10 @@ type Awaitable<T> = T | Promise<T>;
 
 interface BluejayConfigurationServe {
 	notFound: string;
+	/**
+	 * Can be really useful when using GitHub Pages.
+	 */
+	prefix?: string;
 	port?: number;
 	aliases?: Record<string, string>;
 	redirects?: Record<string, string>;
