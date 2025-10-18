@@ -3,7 +3,7 @@ import templates from "./components/templates.tsx";
 import Feed from "./misc/feed.jsx";
 
 export default {
-	cwd: import.meta.dir,
+	root: import.meta.dir,
 	dist: "dist",
 	assets: {
 		"assets": "/assets",
@@ -12,6 +12,7 @@ export default {
 	pages: {
 		"news": "/news",
 		"pages": "",
+		"system": "",
 	},
 	components: {},
 	serve: {

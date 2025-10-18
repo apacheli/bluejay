@@ -57,13 +57,12 @@ async function readPage(app: BluejayApplication, source: BluejayPage) {
 }
 
 async function readFromConfiguration(app: BluejayApplication) {
-	const cwd = app.config.cwd ?? process.cwd();
 	const promises = [];
 	for (const dir in app.config.assets) {
-		promises.push(readAssets(app, `${cwd}/${dir}`, app.config.assets[dir]));
+		promises.push(readAssets(app, `${app.config.root}/${dir}`, app.config.assets[dir]));
 	}
 	for (const dir in app.config.pages) {
-		promises.push(readPages(app, `${cwd}/${dir}`, app.config.pages[dir]));
+		promises.push(readPages(app, `${app.config.root}/${dir}`, app.config.pages[dir]));
 	}
 	return Promise.all(promises);
 }
@@ -98,7 +97,7 @@ interface BluejayApplication {
 }
 
 interface BluejayConfiguration {
-	cwd?: string;
+	root: string;
 	dist?: string;
 	assets: Record<string, string>;
 	pages: Record<string, string>;
