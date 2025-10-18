@@ -1,0 +1,157 @@
+.post-header {
+	margin-bottom: 4rem;
+}
+
+.post-title {
+	font-size: clamp(2rem, 4vw, 3rem);
+	overflow-wrap: break-word;
+	border-bottom: 0.0625rem var(--color-dark-2) solid;
+}
+
+.post-image {
+	display: block;
+	max-width: 100%;
+	margin: auto;
+	margin-top: 4rem;
+	user-select: none;
+}
+
+/* .markdown {} */
+
+.markdown h1,
+.markdown h2 {
+	text-decoration: none;
+	border-bottom: 0.0625rem var(--color-dark-2) solid;
+}
+
+.markdown a {
+	color: var(--color-primary);
+	text-decoration: none;
+}
+
+.markdown a:hover {
+	text-decoration: underline;
+}
+
+.markdown h1 a,
+.markdown h2 a,
+.markdown h3 a {
+	color: inherit;
+}
+
+.markdown img {
+	display: block;
+	max-width: 100%;
+	margin: auto;
+}
+
+.markdown code {
+	font-family: "Fira Code", monospace;
+}
+
+.markdown > pre {
+	padding: 1rem;
+	background-color: var(--color-dark-1);
+}
+
+.markdown code:not(pre code) {
+	padding: 0.25rem;
+	background-color: var(--color-dark-1);
+}
+
+.codeblock {
+	margin: 1rem 0;
+	font-family: "Fira Code", monospace;
+}
+
+.codeblock-head {
+	color: var(--color-header-font);
+	text-align: center;
+	background-color: var(--color-header);
+}
+
+.codeblock-body {
+	display: flex;
+	overflow: auto;
+	background-color: var(--color-dark-1);
+}
+
+.codeblock-lines {
+	min-width: 4rem;
+	padding: 1rem;
+	color: var(--color-font-secondary);
+	text-align: right;
+	user-select: none;
+}
+
+.codeblock-src {
+	flex-grow: 1;
+	padding: 1rem 0;
+	margin: 0;
+}
+
+blockquote {
+	--color-a: var(--color-font-secondary);
+	--color-b: var(--color-dark-1);
+	padding: 0 1rem;
+	margin: 1rem 0;
+	background-color: var(--color-b);
+	border-left: var(--color-a) solid 0.25rem;
+}
+
+.alert {
+	fill: var(--color-a);
+}
+
+.alert-title {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+	font-weight: bold;
+	color: var(--color-a);
+	user-select: none;
+}
+
+.alert-icon {
+	width: 1rem;
+	height: 1rem;
+}
+
+.alert.alert-note {
+	--color-a: #3aa6e4;
+	--color-b: #3aa6e420;
+}
+
+.alert.alert-tip {
+	--color-a: #23a74f;
+	--color-b: #23a74f20;
+}
+
+.alert.alert-important {
+	--color-a: #a457e2;
+	--color-b: #a457e220;
+}
+
+.alert.alert-warning {
+	--color-a: #e9af45;
+	--color-b: #e9af4520;
+}
+
+.alert.alert-caution {
+	--color-a: #e65147;
+	--color-b: #e6514720;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+th,
+td {
+	padding: 0 0.25rem;
+	border: 0.0625rem solid var(--color-dark-2);
+}
+
+tr:nth-child(even) {
+	background-color: var(--color-dark-1);
+}

@@ -1,6 +1,3 @@
 /.bluejay
-/test/svelte/dist
-/website/dist
 /node_modules
-/test.js
-/test.ts
+/test/dist

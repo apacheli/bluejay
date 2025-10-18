@@ -1,0 +1,59 @@
+---
+title: "Bluejay 0.3.0"
+description: "We added a post function that lets you generate arbitrary files. We're also experimenting with Svelte's compiler."
+image: "/bluejay/assets/images/bluejay-old-banner.png"
+type: "blog"
+date: "2024-08-23"
+tag: "Career"
+---
+
+# What's New in Bluejay 0.3.0?
+
+## Install
+
+```
+$ bun add https://github.com/apacheli/bluejay
+```
+
+## Additions
+
+- We've added [`highlight.js`](https://highlightjs.org/) support for code blocks. [Click here to see some example themes.](https://github.com/highlightjs/highlight.js/tree/main/src/styles)
+    - Our highlight plugin is ~**3.57**x faster than other highlighting alternatives!
+- MDX files now cache to `.bluejay/mdx`.
+
+### BluejayOptions.post()
+
+You can generate arbitrary files using `BluejayOptions.post()`. This function is executed when all of your pages render.
+
+```tsx
+import { start } from "bluejay";
+
+start({
+    assets: "src/assets",
+    dir: Bun.cwd,
+    dist: "dist",
+    mode: Bun.env.BUILD_MODE as "build" | "serve",
+    pages: "src/pages",
+    path: "",
+    render: (page, pages) => {
+        /* ... */
+    },
+    post: () => {
+        return {
+            "/my-file.txt": { data: "Hello, World!", type: "text/plain" },
+        };
+    },
+});
+```
+
+## What's Next for Bluejay?
+
+I've recently been experimenting with Svelte's compiler. I don't know if Vue has one, but it would be funny to support Vue too.
+
+I also want to build plugins for Bluejay since arbitrary files are possible now. Stay tuned for what's to come! ~~I'm a one-man team at the moment.~~
+
+## Contributors
+
+We love contributions! [Check out our GitHub for more details.](https://github.com/apacheli/bluejay)
+
+- [apacheli](https://github.com/apacheli)

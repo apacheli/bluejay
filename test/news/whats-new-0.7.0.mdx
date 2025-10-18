@@ -1,0 +1,103 @@
+---
+title: "Bluejay 0.7.0"
+description: "Svelte support is officially coming to Bluejay. Several changes have been made internally that may break existing code."
+image: "/bluejay/assets/images/bluejay-old-banner.png"
+type: "blog"
+date: "2024-11-22"
+tag: "Development"
+---
+
+# What's New in Bluejay 0.7.0?
+
+## Install
+
+```
+$ bun add https://github.com/apacheli/bluejay
+```
+
+## Breaking: Rendering Changes
+
+We've been experimenting with other templating languages such as Svelte since 0.3.0. We're happy to say **support for Svelte has arrived** :tada:. However, you may need to change how your rendering method works as Bluejay is no longer bound to MDX.
+
+Previously you could write this in Bluejay 0.6.0:
+
+```js
+import { start } from "bluejay";
+
+await start({
+    render: (page, pages) => {
+        return <Page><page.mod.default /></Page>;
+    },
+});
+```
+
+In Bluejay 0.7.0, your code must be updated to the following:
+
+```js
+import { start } from "bluejay";
+import { renderToStaticMarkup } from "preact-render-to-string";
+
+await start({
+    render: (page, pages) => {
+        return renderToStaticMarkup(<Page><page.mod.default /></Page>);
+    },
+});
+```
+
+This change grants us more flexibility by not having Bluejay bound to a specific templating language. We've also updated the [Bluejay template](https://github.com/apacheli/bluejay-app) to help make the process easier.
+
+## Support for Svelte
+
+As mentioned earlier, Svelte components are now handled by Bluejay.
+
+In your `bunfig.toml`, add the following preloader:
+
+```toml
+preload = ["bluejay/svelte"]
+```
+
+Install the following packages:
+
+```sh
+bun add svelte mdsvex
+```
+
+That's it! You can now import `.svelte` files. Bluejay will automatically compile and cache them to `.bluejay/svelte`.
+
+> [!NOTE]
+> Bluejay compiles all Svelte components as "server" components.
+
+In your main `render` method, include the following:
+
+```js
+import { start, BLUEJAY_DEV } from "bluejay";
+import { render } from "svelte/server";
+
+await start({
+    render: (page, pages) => {
+        const { head, body } = render(page.mod.default);
+        return `<html lang="en"><head>${head}</head><body>${body}${BLUEJAY_DEV}</body></html>`;
+    },
+});
+```
+
+If you want to try out the demo, see [the Svelte template for Bluejay](https://github.com/apacheli/bluejay-svelte).
+
+## Browser Open Fix
+
+Bluejay now opens the browser after all your pages have been loaded. Bluejay would previously preload opening the browser which would result in responsiveness issues.
+
+## WebSocket Fix
+
+`BLUEJAY_DEV` is now a string. If you're using JSX, use `BLUEJAY_JSX` instead of `BLUEJAY_DEV` for watching page updates:
+
+```diff
+- <BLUEJAY_DEV />
++ <BLUEJAY_JSX />
+```
+
+## Contributors
+
+We love contributions! [Check out our GitHub for more details.](https://github.com/apacheli/bluejay)
+
+- [apacheli](https://github.com/apacheli)
