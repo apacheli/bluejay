@@ -37,13 +37,13 @@ const CommonHead = ({ ctx, children }: any) => (
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" href="/favicon.png" />
+		<link rel="icon" href="/bluejay/favicon.png" />
 		<link rel="stylesheet" href="/bluejay/assets/css/font.css" />
 		<link rel="stylesheet" href="/bluejay/assets/css/index.css" />
 		<title>{ctx.page.metadata.title ?? "No Title"} - apacheli</title>
 
 		<meta property="og:description" content={ctx.page.metadata.description} />
-		<meta property="og:image" content={`${Bun.env.BLUEJAY_URL}${ctx.page.metadata.image ?? "/favicon.png"}`} />
+		<meta property="og:image" content={`${Bun.env.BLUEJAY_URL}${ctx.page.metadata.image ?? "/bluejay/favicon.png"}`} />
 		<meta property="og:title" content={ctx.page.metadata.title} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={Bun.env.BLUEJAY_URL} />
