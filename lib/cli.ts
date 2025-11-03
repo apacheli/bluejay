@@ -1,10 +1,14 @@
 import build from "./build.ts";
-import type { BluejayConfiguration } from "./main.ts";
+import type { BluejayConfiguration } from "./lib.ts";
 import serve from "./serve.ts";
 
-async function cli(command: string, entry: string) {
+const getConfig = async (entry: string) => {
 	const module = await import(`${process.cwd()}/${entry}`);
-	const config: BluejayConfiguration = module.default;
+	return module.default as BluejayConfiguration;
+};
+
+async function cli(command: string, entry: string) {
+	const config = await getConfig(entry);
 
 	switch (command) {
 		case "serve": {
