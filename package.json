@@ -11,8 +11,8 @@
 		"check": "bunx @biomejs/biome check",
 		"format": "bunx @biomejs/biome format",
 		"lint": "bunx @biomejs/biome lint",
-		"build": "bun lib/cli.ts build test/main.ts",
-		"serve": "bun lib/cli.ts serve test/main.ts"
+		"build": "bun lib/cli.js build test/main.ts",
+		"serve": "bun lib/cli.js serve test/main.ts"
 	},
 	"dependencies": {
 		"@mdx-js/mdx": "^3.1.1",
