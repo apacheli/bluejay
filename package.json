@@ -1,8 +1,8 @@
 {
 	"name": "bluejay",
-	"version": "0.8.1",
+	"version": "0.8.2",
 	"main": "lib/main.ts",
-	"bin": "lib/cli.ts",
+	"bin": "lib/cli.js",
 	"files": [
 		"lib"
 	],
