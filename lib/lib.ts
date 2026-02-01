@@ -50,6 +50,7 @@ async function readPage(app: BluejayApplication, source: BluejayPage) {
 	source.data = {};
 	source.element = module.default;
 	source.metadata = module.metadata ?? {};
+	source.__bluejayMetadata__ = module.__bluejayMetadata__ ?? {};
 	if (source.metadata.id !== undefined) {
 		app.ids[source.metadata.id] = source;
 	}
@@ -140,6 +141,9 @@ interface BluejayPage extends BluejaySource {
 	data: Record<string, any>;
 	element: (context: BluejayContext) => JSX.Element;
 	metadata: BluejayMetadata;
+	__bluejayMetadata__: {
+		estimatedWordCount: number;
+	};
 	_response?: Response;
 }
 

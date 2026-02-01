@@ -4,16 +4,16 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkGemoji from "remark-gemoji";
 import remarkGfm from "remark-gfm";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import cache from "./cache.js";
 import PluginAlert from "./plugins/alert.js";
 import PluginHighlight from "./plugins/highlight.js";
+import PluginMetadata from "./plugins/metadata.js";
 import PluginSlug from "./plugins/slug.js";
 
 const compileOptions: CompileOptions = {
 	jsxImportSource: "preact",
-	remarkPlugins: [remarkGemoji, remarkGfm, [remarkFrontmatter, ["yaml", "toml"]], [remarkMdxFrontmatter, { name: "metadata", conflict: "skip", parsers: { yaml: Bun.YAML.parse, toml: Bun.TOML.parse } }], PluginAlert, PluginHighlight, PluginSlug],
+	remarkPlugins: [remarkGemoji, remarkGfm, [remarkFrontmatter, ["yaml", "toml"]], [remarkMdxFrontmatter, { name: "metadata", conflict: "skip", parsers: { yaml: Bun.YAML.parse, toml: Bun.TOML.parse } }], PluginAlert, PluginMetadata, PluginHighlight, PluginSlug],
 };
-
-import cache from "./cache.js";
 
 Bun.plugin({
 	name: "mdx",

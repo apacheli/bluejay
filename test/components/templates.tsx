@@ -21,6 +21,7 @@ const MarkdownTemplate = (ctx: BluejayContext) => (
 );
 
 const BlogTemplate = (ctx: BluejayContext) => {
+	const { title, tag, date, image } = ctx.page.metadata;
 	return (
 		<html lang="en">
 			<CommonHead ctx={ctx}>
@@ -29,10 +30,12 @@ const BlogTemplate = (ctx: BluejayContext) => {
 			</CommonHead>
 			<CommonBody ctx={ctx}>
 				<header class="post-header">
-					<h1 class="post-title">{ctx.page.metadata.title}</h1>
-					<span class="blog-tag">{ctx.page.metadata.tag}</span>
-					<time class="blog-date">{dtf.format(new Date(ctx.page.metadata.date))}</time>
-					<img class="post-image" src={ctx.page.metadata.image ?? `${Bun.env.BLUEJAY_PREFIX}/assets/images/placeholder.png`} alt={ctx.page.metadata.title} />
+					<h1 class="post-title">{title}</h1>
+					<span class="blog-tag">{tag}</span>
+					<time class="blog-date" datetime={date}>
+						{dtf.format(new Date(date))}
+					</time>
+					<img class="post-image" src={image ?? `${Bun.env.BLUEJAY_PREFIX}/assets/images/placeholder.png`} alt={title} />
 				</header>
 				<main class="markdown">{ctx.page.element(ctx)}</main>
 			</CommonBody>
