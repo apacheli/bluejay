@@ -14,13 +14,19 @@ async function readSources(path: string, prefix: string) {
 	for (let i = 0, j = files.length; i < j; i++) {
 		const entry = files[i];
 		if (entry.isFile()) {
-			results.push(createSource(entry, path, prefix));
+			const source = createSource(entry, path, prefix);
+			if (source !== null) {
+				results.push(source);
+			}
 		}
 	}
 	return results;
 }
 
-function createSource(entry: Dirent<string>, path: string, prefix: string): BluejaySource {
+function createSource(entry: Dirent<string>, path: string, prefix: string): BluejaySource | null {
+	if (entry.name.startsWith("_")) {
+		return null;
+	}
 	let dir = entry.parentPath.substring(path.length);
 	if (process.platform === "win32") {
 		dir = dir.replace(/\\/g, "/");
