@@ -1,0 +1,9 @@
+body {
+  background-color: gray;
+  color: yellow;
+  font-family: "Segoe UI";
+}
+
+h1 {
+  text-decoration: underline;
+}
