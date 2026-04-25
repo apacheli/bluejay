@@ -1,5 +1,25 @@
-![](logo.png)
+<p align="center">
+  <img src="./logo.png">
+</p>
 
-# bluejay
+<h1 align="center">bluejay</h1>
 
-Building static pages made easy.
+<p>
+  <img src="https://img.shields.io/discord/1112086304096800879">
+  <img src="https://img.shields.io/github/stars/apacheli/bluejay">
+</p>
+
+<p align="center"><em>Building static pages made easy.</em></p>
+
+**bluejay** is an open-source static site generator written in JavaScript.
+
+- :zap: Powered by Bun for maximum performance.
+- :electric_plug: Custom plugins for `lightningcss`, `svelte` and `vue`.
+- :computer: Built-in watcher lets you see changes as they happen.
+- :mag: Extremely small bundle size.
+
+## Install
+
+```bash
+bun add https://github.com/apacheli/bluejay
+```
