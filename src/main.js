@@ -1,13 +1,8 @@
 import { join } from "node:path";
 import { render } from "@apacheli/jsx";
 import PageLayout from "./layouts/page_layout.js";
-import {
-  jsxPlugin,
-  lightningCssPlugin,
-  markdownPlugin,
-  setExtensionPlugin,
-  setUrlPlugin,
-} from "../lib/plugins.js";
+import { extension, jsx, markdown, url } from "../lib/plugins/bluejay.js";
+import lightningCss from "../lib/plugins/lightningcss.js";
 
 const isDevelopment = Bun.env.NODE_ENV === "development";
 const port = 1337;
@@ -29,28 +24,26 @@ export default {
     ],
   },
   plugins: [
-    setUrlPlugin(
-      isDevelopment ? `http://localhost:${port}` : "https://apache.li",
-    ),
+    url(isDevelopment ? `http://localhost:${port}` : "https://apache.li"),
     {
       filter: /\.css$/i,
       use: [
-        lightningCssPlugin({ minify: true }),
+        lightningCss({ minify: true }),
       ],
     },
     {
       filter: /\.(?:md|markdown)$/i,
       use: [
-        setExtensionPlugin(".html", false),
-        markdownPlugin(Bun.YAML.parse, Bun.markdown.react),
+        extension(".html", false),
+        markdown(Bun.YAML.parse, Bun.markdown.react),
       ],
     },
     {
       filter: /\.[jt]sx$/i,
       use: [
-        setExtensionPlugin(".html", false),
-        jsxPlugin(),
-        async (file, files) => {
+        extension(".html", false),
+        jsx(),
+        (file, files) => {
           file.meta = file.module.meta ?? {};
           file.content = render(<PageLayout file={file} files={files} />);
         },

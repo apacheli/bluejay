@@ -4,7 +4,7 @@
 
 <h1 align="center">bluejay</h1>
 
-<p>
+<p align="center">
   <img src="https://img.shields.io/discord/1112086304096800879">
   <img src="https://img.shields.io/github/stars/apacheli/bluejay">
 </p>
@@ -14,9 +14,12 @@
 **bluejay** is an open-source static site generator written in JavaScript.
 
 - :zap: Powered by Bun for maximum performance.
-- :electric_plug: Custom plugins for `lightningcss`, `svelte` and `vue`.
+- :electric_plug: Custom plugins for `lightningcss`, `svelte`, and `vue`.
 - :computer: Built-in watcher lets you see changes as they happen.
 - :mag: Extremely small bundle size.
+
+> [!WARNING]
+> bluejay is still under development. Don't use it in production yet.
 
 ## Install
 
