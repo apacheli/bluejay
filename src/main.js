@@ -1,6 +1,6 @@
 import { join } from "node:path";
 import { render } from "@apacheli/jsx";
-import PageLayout from "./layouts/page_layout.js";
+import Page from "./layouts/page.js";
 import { extension, jsx, markdown, url } from "../lib/plugins/bluejay.js";
 import lightningCss from "../lib/plugins/lightningcss.js";
 
@@ -36,6 +36,9 @@ export default {
       use: [
         extension(".html", false),
         markdown(Bun.YAML.parse, Bun.markdown.react),
+        (file, files) => {
+          file.render = () => <Page file={file} files={files} />;
+        },
       ],
     },
     {
@@ -45,12 +48,18 @@ export default {
         jsx(),
         (file, files) => {
           file.meta = file.module.meta ?? {};
-          file.content = render(<PageLayout file={file} files={files} />);
+          file.render = () => <Page file={file} files={files} />;
         },
       ],
     },
     (file) => {
-      console.log(file.url);
+      if (file.render !== undefined) {
+        console.log(file);
+        file.content = "<!DOCTYPE html>" + render(file.render());
+      }
+    },
+    (file) => {
+      console.log(`\x1b[31m\u2192\x1b[39m \x1b[36m${file.url}\x1b[39m`);
     },
   ],
 };

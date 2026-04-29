@@ -2,9 +2,6 @@
   "name": "bluejay",
   "description": "Building static pages made easy.",
   "version": "0.9.0-beta",
-  "dependencies": {
-    "@apacheli/jsx": "https://github.com/apacheli/jsx"
-  },
   "scripts": {
     "build": "BLUEJAY_COMMAND=build bun lib/main.js src/main.js",
     "serve": "BLUEJAY_COMMAND=serve NODE_ENV=development bun lib/main.js src/main.js",
@@ -14,6 +11,7 @@
     "@types/bun": "^1.3.13"
   },
   "peerDependencies": {
+    "@apacheli/jsx": "https://github.com/apacheli/jsx",
     "lightningcss": "^1.32.0"
   }
 }

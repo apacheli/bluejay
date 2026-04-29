@@ -1,6 +1,6 @@
 const isDevelopment = Bun.env.NODE_ENV === "development";
 
-const PageLayout = ({ file, files }) => {
+const Page = ({ file, files }) => {
   return (
     <html lang="en">
       <head>
@@ -8,13 +8,11 @@ const PageLayout = ({ file, files }) => {
         <link href="/assets/index.css" rel="stylesheet" />
       </head>
       <body>
-        <div>
-          <file.module.default file={file} files={files} />
-        </div>
+        <div>{file.module.default({ file, files })}</div>
         {isDevelopment ? <script src="/_bluejay/ws/client" /> : undefined}
       </body>
     </html>
   );
 };
 
-export default PageLayout;
+export default Page;

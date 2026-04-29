@@ -13,10 +13,10 @@
 
 **bluejay** is an open-source static site generator written in JavaScript.
 
-- :zap: Powered by Bun for maximum performance.
-- :electric_plug: Custom plugins for `lightningcss`, `svelte`, and `vue`.
-- :computer: Built-in watcher lets you see changes as they happen.
-- :mag: Extremely small bundle size.
+- Powered by Bun for maximum performance.
+- Support for custom plugins.
+- Built-in watcher lets you see changes as they happen.
+- Extremely small bundle size.
 
 > [!WARNING]
 > bluejay is still under development. Don't use it in production yet.
