@@ -1,7 +1,7 @@
 {
   "name": "bluejay",
   "description": "Building static pages made easy.",
-  "version": "0.9.0-beta",
+  "version": "0.9.1-beta",
   "scripts": {
     "build": "BLUEJAY_COMMAND=build bun lib/main.js src/main.js",
     "serve": "BLUEJAY_COMMAND=serve NODE_ENV=development bun lib/main.js src/main.js",

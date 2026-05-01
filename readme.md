@@ -19,7 +19,7 @@
 - Extremely small bundle size.
 
 > [!WARNING]
-> bluejay is still under development. Don't use it in production yet.
+> bluejay is still under development. Don't use it in production.
 
 ## Install
 
