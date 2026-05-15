@@ -1,53 +1,32 @@
 import { join } from "node:path";
 import { render } from "@apacheli/jsx";
-import Page from "./layouts/page.jsx";
-import { extension, markdown, props, url } from "../lib/plugins/bluejay.js";
-import lightningCss from "../lib/plugins/lightning_css.js";
 
-const dev = Bun.env.NODE_ENV === "development";
-const port = dev ? 1337 : 80;
+import extension from "../lib/plugins/extension.js";
+import jsx from "../lib/plugins/jsx.js";
+import lightningCss from "../lib/plugins/lightning_css.js";
+import markdown from "../lib/plugins/markdown.js";
+
+import Page from "./layouts/page.jsx";
 
 export default {
-  file: import.meta.filename,
+  meta: import.meta,
   dist: join(Bun.cwd, "./dist"),
-  src: import.meta.dir,
-  cmd: Bun.env.BLUEJAY_COMMAND,
-  dev,
-  port,
+  port: 1337,
+  dev: Bun.env.NODE_ENV === "development",
   map: {
     "/": ["./static", "./pages"],
     "/assets": ["./assets"],
   },
   plugins: [
-    url(dev ? `http://localhost:${port}` : "https://apache.li"),
-    {
-      filter: /\.css$/i,
-      use: [
-        lightningCss({ minify: true }),
-      ],
-    },
-    {
-      filter: /\.(?:md|markdown)$/i,
-      use: [
-        extension(".html", false),
-        props({ render: true }),
-        markdown(Bun.YAML.parse, Bun.markdown.react),
-      ],
-    },
-    {
-      filter: /\.[jt]sx$/i,
-      use: [
-        extension(".html", false),
-        props({ render: true }),
-        async (file) => {
-          file.module = await import(file.path);
-          file.meta = file.module.meta ?? {};
-        },
-      ],
-    },
+    lightningCss({ minify: true }),
+    jsx,
+    markdown(Bun.YAML.parse, Bun.markdown.react),
+    extension({
+      ".html": /\.(?:md|jsx)$/,
+    }),
     (file, files) => {
-      console.log(`  \x1b[31m\u2192\x1b[39m \x1b[36m${file.url}\x1b[39m`);
-      if (file.render === true) {
+      console.log(`    \x1b[32m\u2192\x1b[39m http://localhost:\x1b[36m1337\x1b[39m${file.url}`);
+      if (file.render !== undefined) {
         file.content = "<!DOCTYPE html>" + render(Page({ file, files }));
       }
     },

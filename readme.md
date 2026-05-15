@@ -23,6 +23,8 @@
 
 ## Install
 
+You will need Bun v1.3.8 or higher.
+
 ```bash
 bun add https://github.com/apacheli/bluejay
 ```

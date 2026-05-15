@@ -1,5 +1,5 @@
 ---
-title: [
+title: A Title
 ---
 
 # Hello, World!
