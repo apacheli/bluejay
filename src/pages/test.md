@@ -4,4 +4,4 @@ title: A Title
 
 # Hello, World!
 
-This is a test.
+This page _includes_ **Markdown** ~~content~~.
