@@ -9,6 +9,7 @@ import markdown from "../lib/plugins/markdown.js";
 import Page from "./layouts/page.jsx";
 
 export default {
+  ctx: {},
   meta: import.meta,
   dist: join(Bun.cwd, "./dist"),
   port: 1337,
@@ -24,10 +25,12 @@ export default {
     extension({
       ".html": /\.(?:md|jsx)$/,
     }),
-    (file, files) => {
-      console.log(`    \x1b[32m\u2192\x1b[39m http://localhost:\x1b[36m1337\x1b[39m${file.url}`);
-      if (file.render !== undefined) {
-        file.content = "<!DOCTYPE html>" + render(Page({ file, files }));
+    ({ files }) => {
+      for (const file of files) {
+        console.log(`    \x1b[32m\u2192\x1b[39m http://localhost:\x1b[36m1337\x1b[39m${file.url}`);
+        if (file.render !== undefined) {
+          file.content = "<!DOCTYPE html>" + render(Page({ file, files }));
+        }
       }
     },
   ],
