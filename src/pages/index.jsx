@@ -2,7 +2,7 @@ export const meta = {
   title: "Home",
 };
 
-export default ({ files }) => {
+export default () => {
   return (
     <>
       <h1>Bluejay Demo</h1>

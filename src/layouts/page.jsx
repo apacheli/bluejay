@@ -6,7 +6,7 @@ const Page = (ctx) => {
       <head>
         <title>{ctx.file.meta?.title}</title>
         <link href="/assets/index.css" rel="stylesheet" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
       </head>
       <body>
         <div>{ctx.file.render(ctx)}</div>
