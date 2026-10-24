@@ -1,6 +1,6 @@
 const isDevelopment = Bun.env.NODE_ENV === "development";
 
-const Page = (ctx) => {
+const Page = ({ ctx }) => {
   return (
     <html lang="en">
       <head>
