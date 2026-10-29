@@ -1,17 +1,17 @@
 {
   "name": "bluejay",
+  "version": "0.11.1",
   "description": "Building static pages made easy.",
-  "version": "0.11.0",
-  "main": "./lib/main.js",
   "bin": "./lib/bin.js",
+  "files": [
+    "lib"
+  ],
+  "main": "./lib/main.js",
   "scripts": {
     "build": "BLUEJAY_MODE=build bun lib/bin.js src/main.js",
     "serve": "BLUEJAY_MODE=serve NODE_ENV=development bun lib/bin.js src/main.js",
     "serve:production": "BLUEJAY_MODE=serve bun lib/bin.js src/main.js"
   },
-  "files": [
-    "lib"
-  ],
   "devDependencies": {
     "@types/bun": "^1.4.2"
   },

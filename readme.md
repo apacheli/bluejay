@@ -14,7 +14,7 @@
 **bluejay** is an open-source static site generator written in JavaScript.
 
 - Powered by Bun for maximum performance.
-- Support for custom plugins.
+- Supports custom plugins.
 - Built-in watcher lets you see changes as they happen.
 - Extremely small bundle size.
 
@@ -23,8 +23,12 @@
 
 ## Install
 
-You will need Bun **v1.3.8** or higher.
+You will need **Bun v1.4.4** or higher.
 
 ```bash
 bun add https://github.com/apacheli/bluejay
 ```
+
+## Getting Started
+
+You can create a project with `bun create https://github.com/apacheli/bluejay-app`.

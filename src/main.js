@@ -21,13 +21,8 @@ export default {
   mode,
   port,
   map: {
-    "/": [
-      "./static",
-      "./pages",
-    ],
-    "/assets": [
-      "./assets",
-    ],
+    "/": ["./static", "./pages"],
+    "/assets": ["./assets"],
   },
   plugins: [
     extension({
